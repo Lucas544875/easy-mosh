@@ -1,6 +1,6 @@
 import React from 'react';
-import DatamoshEditor from '@/components/DatamoshEditor';
-import Header from '@/components/Header';
+import DatamoshEditor from '@features/datamosh-editor/DatamoshEditor';
+import Header from '@features/header/Header';
 
 function App() {
   return (

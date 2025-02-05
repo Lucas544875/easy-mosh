@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@/components/ui/button';
+import Button from '@common/button';
 
 const Header = () => (
   <header className="flex justify-between items-center p-4 bg-gray-100 border-b">
