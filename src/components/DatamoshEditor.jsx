@@ -21,15 +21,6 @@ const DatamoshEditor = () => {
 
   return (
     <div className="p-4 space-y-4">
-      {/* Header Section */}
-      <header className="flex justify-between items-center p-4 bg-gray-100 border-b">
-        <div className="text-lg font-bold">ロゴ</div>
-        <nav className="flex space-x-4">
-          <Button>編集</Button>
-          <Button>使い方</Button>
-        </nav>
-      </header>
-
       {/* Main Content Section */}
       <div className="grid grid-cols-4 gap-4">
         {/* Video Data Section */}
