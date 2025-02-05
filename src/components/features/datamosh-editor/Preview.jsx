@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "@common/button";
+import RenderButton from './RenderButton';
+
 
 const Preview = ({selectedVideo}) => (
   <>
@@ -19,6 +22,7 @@ const Preview = ({selectedVideo}) => (
     ) : (
       <p className="text-gray-500">動画を選択してください</p>
     )}
+    <RenderButton />
   </>
 )
 

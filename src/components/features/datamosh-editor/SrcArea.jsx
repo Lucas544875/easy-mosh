@@ -18,13 +18,13 @@ const SrcArea = ({setVideos, setSelectedVideo, videos}) => {
   };
   
   return (
-    <div className="col-span-1 space-y-4">
+    <>
       <input
         type="file"
         accept="video/*"
         multiple
         onChange={handleFileUpload}
-        className="hidden"
+        className=""
         id="video-upload"
       />
       <label htmlFor="video-upload" className="cursor-pointer">
@@ -45,7 +45,7 @@ const SrcArea = ({setVideos, setSelectedVideo, videos}) => {
           </Card>
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

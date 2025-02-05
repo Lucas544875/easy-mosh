@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Card, CardContent } from "@common/card";
-import Button from "@common/button";
 import SrcArea from './SrcArea';
-import Timeline from './Timeline';
 import Preview from './Preview';
+import Timeline from './Timeline';
 
 const DatamoshEditor = () => {
   const [videos, setVideos] = useState([]);
@@ -11,22 +9,26 @@ const DatamoshEditor = () => {
 
   return (
     <div className="flex-1 p-4 space-y-4 text-white bg-slate-950">
-      {/* Main Content Section */}
-      <div className="grid grid-cols-4 gap-4">
-        {/* Video Data Section */}
-        <SrcArea setSelectedVideo={setSelectedVideo} setVideos={setVideos} videos={videos} />
-        {/* Preview Section */}
+      <div className="grid grid-cols-4 gap-4 h-full">
+        <div className="col-span-1 space-y-4 ">
+          {/* Source Area */}
+          <SrcArea 
+            setSelectedVideo = {setSelectedVideo}
+            setVideos = {setVideos}
+            videos = {videos} 
+          />
+        </div>
         <div className="col-span-3 space-y-4">
-          <Preview selectedVideo={selectedVideo} />
+          {/* Preview Section */}
+          <div className="h-1/2">
+            <Preview selectedVideo={selectedVideo} />
+          </div>
           {/* Timeline Section */}
-          <Timeline videos={videos} />
+          <div className="h-1/2">
+            <Timeline videos={videos} />
+          </div>
         </div>
       </div>
-
-      {/* Render Button Section */}
-      {/* <footer className="flex justify-end p-4 border-t">
-        <Button className="bg-blue-500 text-white">レンダリング</Button>
-      </footer> */}
     </div>
   );
 }
