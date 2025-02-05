@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export default function DatamoshEditor() {
+const DatamoshEditor = () => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
@@ -106,3 +106,5 @@ export default function DatamoshEditor() {
     </div>
   );
 }
+
+export default DatamoshEditor;
