@@ -20,7 +20,7 @@ const DatamoshEditor = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="flex-1 p-4 space-y-4 text-white bg-slate-950">
       {/* Main Content Section */}
       <div className="grid grid-cols-4 gap-4">
         {/* Video Data Section */}

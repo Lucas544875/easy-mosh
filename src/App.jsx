@@ -4,7 +4,7 @@ import Header from '@features/header/Header';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="flex flex-col h-screen w-screen">
       <Header />
       <DatamoshEditor />
     </div>
