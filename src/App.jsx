@@ -1,14 +1,20 @@
-import React from 'react';
-import DatamoshEditor from '@features/datamosh-editor/DatamoshEditor';
-import Header from '@features/header/Header';
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from "react-router-dom";
+import Home from './pages/Home';
+import About from './pages/About';
 
-function App() {
+const App = () => {
   return (
-    <div className="flex flex-col h-screen w-screen">
-      <Header />
-      <DatamoshEditor />
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;

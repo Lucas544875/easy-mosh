@@ -7,8 +7,8 @@ const Header = () => (
       ロゴ
     </div>
     <nav className="flex space-x-4">
-      <HeaderButton>編集</HeaderButton>
-      <HeaderButton>使い方</HeaderButton>
+      <HeaderButton to={"/"}>編集</HeaderButton>
+      <HeaderButton to={"/about"}>使い方</HeaderButton>
     </nav>
   </header>
 )
