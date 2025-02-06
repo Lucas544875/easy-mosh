@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SrcCard from "@features/src-area/SrcCard";
-import Plus from "../../../assets/plus.svg";
+import Plus from "@assets/plus.svg";
 
 const SrcAreaa = () => {
   const [videos, setVideos] = useState([]);
@@ -21,7 +21,6 @@ const SrcAreaa = () => {
           <SrcCard
             key={index}
             src={video.url}
-            poster={video.url}
             name={video.name}
           />
         ))}

@@ -1,14 +1,27 @@
 import React from "react";
-import { Card, CardContent } from "@common/card";
+import Card from "@common/card";
+import DeleteIcon from "@assets/delete.svg";
+import MovieEditIcon from "@assets/movie-edit.png";
 
-const SrcCard = ({src, poster, name}) => (
+const SrcCard = ({src, name}) => (
   <Card
-    className="p-2"
+    className="bg-slate-600"
   >
-    <CardContent className = "flex flex-col items-center">
-      <video src={src} className="w-full h-auto" controls poster={poster} />
-      <p className="text-center mt-2">{name}</p>
-    </CardContent>
+    <div className="flex flex-row-reverse gap-2 space-y-2">
+      <img
+        src={DeleteIcon}
+        alt="delete"
+        className="cursor-pointer h-7"
+      />
+      <img 
+        src={MovieEditIcon}
+        alt="connect to timeline"
+        className="cursor-pointer h-7"
+        color="white"
+      />
+    </div>
+    <video src={src} className="w-full" controls controlsList="nofullscreen" />
+    <p className="text-center mt-1">{name}</p>
   </Card>
 )
 
