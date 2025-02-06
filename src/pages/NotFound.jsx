@@ -1,10 +1,12 @@
-import React from 'react';
 import Header from '@features/header/Header';
 
-const About = () => (
+const NotFound = () => (
   <div className="flex flex-col h-screen w-screen">
     <Header />
+    <p>
+      404 Not Found
+    </p>
   </div>
 )
 
-export default About;
+export default NotFound;
