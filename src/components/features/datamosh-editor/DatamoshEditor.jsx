@@ -9,12 +9,12 @@ const DatamoshEditor = () => {
 
   return (
     <div className="flex-1 text-white bg-slate-950">
-      <div className="grid grid-cols-4 h-full">
+      <div className="grid grid-cols-3 h-full">
         <div className="col-span-1 border-r p-4">
           {/* Source Area */}
           <SrcArea />
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
           {/* Preview Section */}
           <div className="h-1/2 p-4 border-b">
             <Preview selectedVideo={selectedVideo} />
