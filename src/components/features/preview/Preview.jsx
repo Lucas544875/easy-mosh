@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@common/button";
-import RenderButton from '../datamosh-editor/RenderButton';
+import RenderButton from './RenderButton';
 
 
 const Preview = ({selectedVideo}) => (
