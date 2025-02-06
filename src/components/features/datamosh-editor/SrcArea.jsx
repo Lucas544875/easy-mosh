@@ -1,52 +1,49 @@
-import React from "react";
-import Button from "@common/button";
+import React, { useState } from "react";
 import { Card, CardContent } from "@common/card";
+import Plus from "../../../assets/plus.svg";
 
-const SrcArea = ({setVideos, setSelectedVideo, videos}) => {
+const SrcAreaa = () => {
+  const [videos, setVideos] = useState([]);
 
-  const handleFileUpload = (event) => {
+  const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
-    const videoFiles = files.map((file) => ({
-      name: file.name,
+    const newVideos = files.map((file) => ({
       url: URL.createObjectURL(file),
+      name: file.name,
     }));
-    setVideos([...videos, ...videoFiles]);
+    setVideos((prev) => [...prev, ...newVideos]);
   };
 
-  const selectVideo = (video) => {
-    setSelectedVideo(video);
-  };
-  
   return (
-    <>
-      <input
-        type="file"
-        accept="video/*"
-        multiple
-        onChange={handleFileUpload}
-        className=""
-        id="video-upload"
-      />
-      <label htmlFor="video-upload" className="cursor-pointer">
-        <Button>動画を追加</Button>
-      </label>
-      <div className="flex flex-col gap-2">
+    <div className="relative h-full">
+      <div className="grid grid-cols-2 gap-4">
         {videos.map((video, index) => (
-          <Card
-            key={index}
-            className={`cursor-pointer p-2 ${
-              selectedVideo === video ? 'border-blue-500' : 'border-gray-300'
-            } border-2 rounded-lg`}
-            onClick={() => selectVideo(video)}
-          >
-            <CardContent>
-              <p>{video.name}</p>
+          <Card key={index} className="p-2">
+            <CardContent className="flex flex-col items-center">
+              <video src={video.url} className="w-full h-auto" controls poster={video.url} />
+              <p className="text-center mt-2">{video.name}</p>
             </CardContent>
           </Card>
         ))}
       </div>
-    </>
-  )
-}
+      <input
+        type="file"
+        accept="video/*"
+        multiple
+        className="hidden"
+        id="video-upload"
+        onChange={handleFileChange}
+      />
+      <label htmlFor="video-upload" className="absolute bottom-4 right-4 bg-slate-500 p-3 rounded-full cursor-pointer hover:bg-slate-400">
+        <img
+          src={Plus}
+          alt="plus"
+          width={24}
+          height={24}
+        />
+      </label>
+    </div>
+  );
+};
 
-export default SrcArea;
+export default SrcAreaa;

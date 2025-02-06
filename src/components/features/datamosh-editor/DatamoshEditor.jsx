@@ -12,11 +12,7 @@ const DatamoshEditor = () => {
       <div className="grid grid-cols-4 h-full">
         <div className="col-span-1 border-r p-4">
           {/* Source Area */}
-          <SrcArea 
-            setSelectedVideo = {setSelectedVideo}
-            setVideos = {setVideos}
-            videos = {videos} 
-          />
+          <SrcArea />
         </div>
         <div className="col-span-3">
           {/* Preview Section */}
