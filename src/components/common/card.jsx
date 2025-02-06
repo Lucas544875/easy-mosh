@@ -9,8 +9,8 @@ const Card = ({ children, className, ...props }) => (
   </div>
 )
 
-const CardContent = ({ children }) => (
-  <div className="text-sm">{children}</div>
+const CardContent = ({ children, className }) => (
+  <div className={`text-sm ${className}`}>{children}</div>
 )
 
 export { Card, CardContent };

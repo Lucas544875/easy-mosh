@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@common/card";
+import SrcCard from "@features/src-area/SrcCard";
 import Plus from "../../../assets/plus.svg";
 
 const SrcAreaa = () => {
@@ -18,12 +18,12 @@ const SrcAreaa = () => {
     <div className="relative h-full">
       <div className="grid grid-cols-2 gap-4">
         {videos.map((video, index) => (
-          <Card key={index} className="p-2">
-            <CardContent className="flex flex-col items-center">
-              <video src={video.url} className="w-full h-auto" controls poster={video.url} />
-              <p className="text-center mt-2">{video.name}</p>
-            </CardContent>
-          </Card>
+          <SrcCard
+            key={index}
+            src={video.url}
+            poster={video.url}
+            name={video.name}
+          />
         ))}
       </div>
       <input
