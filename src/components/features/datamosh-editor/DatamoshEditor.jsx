@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SrcArea from './SrcArea';
-import Preview from './Preview';
-import Timeline from './Timeline';
+import SrcArea from '@features/src-area/SrcArea';
+import Preview from '@features/preview/Preview';
+import Timeline from '@features/timeline/Timeline';
 
 const DatamoshEditor = () => {
   const [videos, setVideos] = useState([]);
