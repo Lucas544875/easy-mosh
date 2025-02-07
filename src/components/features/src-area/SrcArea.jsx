@@ -8,10 +8,15 @@ const SrcAreaa = () => {
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     const newVideos = files.map((file) => ({
+      id: Date.now(),
       url: URL.createObjectURL(file),
       name: file.name,
     }));
     setVideos((prev) => [...prev, ...newVideos]);
+  };
+
+  const deleteVideo = (id) => {
+    setVideos((prev) => prev.filter(item => item.id !== id));
   };
 
   return (
@@ -23,11 +28,12 @@ const SrcAreaa = () => {
         overflow: "auto"
       }}
       > 
-        {videos.map((video, index) => (
+        {videos.map((video) => (
           <SrcCard
-            key={index}
+            key={video.id}
             src={video.url}
             name={video.name}
+            onDelete={() => deleteVideo(video.id)}
           />
         ))}
       </div>

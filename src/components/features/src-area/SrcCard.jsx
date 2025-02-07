@@ -3,7 +3,7 @@ import Card from "@common/card";
 import DeleteIcon from "@assets/delete.svg";
 import MovieEditIcon from "@assets/movie-edit.png";
 
-const SrcCard = ({src, name}) => (
+const SrcCard = ({src, name, onDelete}) => (
   <Card
     className="bg-slate-600"
   >
@@ -12,6 +12,7 @@ const SrcCard = ({src, name}) => (
         src={DeleteIcon}
         alt="delete"
         className="cursor-pointer h-7"
+        onClick={() => onDelete()}
       />
       <img 
         src={MovieEditIcon}
