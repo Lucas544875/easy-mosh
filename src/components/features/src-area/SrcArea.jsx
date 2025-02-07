@@ -16,7 +16,13 @@ const SrcAreaa = () => {
 
   return (
     <div className="relative h-full">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4"
+      style={{
+        // 要レスポンシブ対応
+        maxHeight: "calc(100vh - 106px)",
+        overflow: "auto"
+      }}
+      > 
         {videos.map((video, index) => (
           <SrcCard
             key={index}
