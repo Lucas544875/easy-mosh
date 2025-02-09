@@ -5,6 +5,7 @@ import { CustomRender } from './custom';
 import './index.less';
 import {mockData, mockEffect, scale, scaleWidth, startLeft } from './mock';
 import TimelinePlayer from './player';
+import RenderButton from './RenderButton';
 
 const defaultEditorData = cloneDeep(mockData);
 
@@ -14,8 +15,12 @@ const TimelineEditor = () => {
 
   return (
     <>
-      <div className="h-1/2 p-4 border-b flex justify-center items-center">
-        <video id="video-1" className="video" style={{height: "300px"}} />
+      <div className="h-1/2 p-4 border-b flex justify-center items-center relative">
+        <video id="video-1" className="video bg-black" style={{height: "300px"}} />
+        <RenderButton
+          className="absolute bottom-4 right-4"
+          timelineState={timelineState}
+        />
       </div>
       <div className="h-1/2 p-4">
         <TimelinePlayer timelineState={timelineState}/>

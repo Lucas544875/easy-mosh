@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SrcArea from '@features/src-area/SrcArea';
-import Preview from '@features/preview/Preview';
 import TimelineEditor from '@features/timeline/Timeline';
 
 const DatamoshEditor = () => {
