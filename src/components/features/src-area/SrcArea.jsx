@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 import SrcCard from "@features/src-area/SrcCard";
-import Plus from "@assets/plus.svg";
 
 const SrcAreaa = () => {
   const [videos, setVideos] = useState([]);
@@ -46,12 +46,7 @@ const SrcAreaa = () => {
         onChange={handleFileChange}
       />
       <label htmlFor="video-upload" className="absolute bottom-4 right-4 bg-zinc-500 p-3 rounded-full cursor-pointer hover:bg-zinc-400">
-        <img
-          src={Plus}
-          alt="plus"
-          width={24}
-          height={24}
-        />
+        <PlusOutlined style={{ fontSize: "24px", color: "black" }} />
       </label>
     </div>
   );
