@@ -41,7 +41,7 @@ export const mockData = [
         end: 8,
         effectId: 'effect', // 動画
         data: {
-          src: '/movie/mov.mp4',
+          src: '/src/assets/mov.mp4',
           name: '例1',
         },
       },
@@ -51,7 +51,7 @@ export const mockData = [
         end: 15,
         effectId: 'effect', // 動画
         data: {
-          src: '/movie/mov.mp4',
+          src: '/src/assets/mov.mp4',
           name: '例2',
         },
       },
