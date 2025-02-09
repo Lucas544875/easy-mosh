@@ -1,9 +1,7 @@
-import { TimelineEngine } from '@xzdarcy/react-timeline-editor';
-
 class VideoControl {
-  video: HTMLVideoElement;
+  video;
 
-  private _seekTo(time) {
+  _seekTo(time) {
     if (!this.video.duration || isNaN(this.video.duration)) return;
     const duration = this.video.duration;
     if (time > duration) time = time % duration;
@@ -19,7 +17,7 @@ class VideoControl {
       }
       this._seekTo(time - startTime);
     } else {
-      this.video = document.getElementById("video-1") as HTMLVideoElement;
+      this.video = document.getElementById("video-1");
       if (this.video.src !== src) {
         this.video.src = src;
       }

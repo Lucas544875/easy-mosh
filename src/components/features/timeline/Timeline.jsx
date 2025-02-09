@@ -1,16 +1,16 @@
-import { Timeline, TimelineState } from '@xzdarcy/react-timeline-editor';
+import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { cloneDeep } from 'lodash';
 import React, { useRef, useState } from 'react';
 import { CustomRender2 } from './custom';
 import './index.less';
-import { CustomTimelineAction, CusTomTimelineRow, mockData, mockEffect, scale, scaleWidth, startLeft } from './mock';
+import {mockData, mockEffect, scale, scaleWidth, startLeft } from './mock';
 import TimelinePlayer from './player';
 
 const defaultEditorData = cloneDeep(mockData);
 
 const TimelineEditor = () => {
   const [data, setData] = useState(defaultEditorData);
-  const timelineState = useRef<TimelineState>();
+  const timelineState = useRef();
 
   return (
     <div className="timeline-editor-engine">
@@ -25,11 +25,11 @@ const TimelineEditor = () => {
         editorData={data}
         effects={mockEffect}
         onChange={(data) => {
-          setData(data as CusTomTimelineRow[]);
+          setData(data);
         }}
         getActionRender={(action, row) => {
           if (action.effectId === 'effect') {
-            return <CustomRender2 action={action as CustomTimelineAction} row={row as CusTomTimelineRow} />;
+            return <CustomRender2 action={action} row={row} />;
           }
         }}
       />

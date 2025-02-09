@@ -1,15 +1,11 @@
 import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
-import { TimelineState } from "@xzdarcy/react-timeline-editor";
 import { Select } from "antd";
-import React, { FC, useEffect, useState } from "react";
-import { scale, scaleWidth, startLeft } from "./mock";
+import React, {useEffect, useState } from "react";
 
 const { Option } = Select;
 export const Rates = [0.2, 0.5, 1.0, 1.5, 2.0];
 
-const TimelinePlayer: FC<{
-  timelineState: React.MutableRefObject<TimelineState>;
-}> = ({ timelineState}) => {
+const TimelinePlayer= ({ timelineState}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
 
@@ -42,13 +38,13 @@ const TimelinePlayer: FC<{
   };
 
   // 再生速度の設定
-  const handleRateChange = (rate: number) => {
+  const handleRateChange = (rate) => {
     if (!timelineState.current) return;
     timelineState.current.setPlayRate(rate);
   };
 
   // 時間表示
-  const timeRender = (time: number) => {
+  const timeRender = (time) => {
     const float = (parseInt((time % 1) * 100 + "") + "").padStart(2, "0");
     const min = (parseInt(time / 60 + "") + "").padStart(2, "0");
     const second = (parseInt((time % 60) + "") + "").padStart(2, "0");

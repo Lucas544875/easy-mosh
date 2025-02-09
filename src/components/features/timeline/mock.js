@@ -1,28 +1,17 @@
-import { TimelineAction, TimelineEffect, TimelineRow } from '@xzdarcy/react-timeline-editor';
 import videoControl from  './videoControl';
 
 export const scaleWidth = 160;
 export const scale = 5;
 export const startLeft = 20;
 
-export interface CustomTimelineAction extends TimelineAction {
-  data: {
-    src: string;
-    name: string;
-  };
-}
 
-export interface CusTomTimelineRow extends TimelineRow {
-  actions: CustomTimelineAction[];
-}
-
-export const mockEffect: Record<string, TimelineEffect> = {
+export const mockEffect = {
   effect: {
     id: 'effect',
     name: '動画',
     source: {
       enter: ({ action, engine, time, isPlaying }) => {
-        const src = (action as CustomTimelineAction).data.src;
+        const src = (action).data.src;
         videoControl.enter({src, startTime: action.start, time, engine,isPlaying });
       },
       update: ({ action, time }) => {
@@ -35,14 +24,14 @@ export const mockEffect: Record<string, TimelineEffect> = {
         videoControl.stop({startTime: action.start, time, isPlaying });
       },
       start: ({ action, engine, time, isPlaying }) => {
-        const src = (action as CustomTimelineAction).data.src;
+        const src = (action).data.src;
         videoControl.enter({src, startTime: action.start, time, engine,isPlaying });
       },
     },
   },
 };
 
-export const mockData: CusTomTimelineRow[] = [
+export const mockData = [
   {
     id: '1',
     actions: [
