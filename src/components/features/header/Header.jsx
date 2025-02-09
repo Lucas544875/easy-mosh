@@ -1,19 +1,27 @@
 import React from 'react';
-import HeaderButton from './HeaderButton';
+import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
-  <header className="flex justify-between items-center p-4 bg-slate-800 border-b text-white">
-    <Link to={"/"}>
-      <div className="text-lg font-bold">
-        ロゴ
-      </div>    
-    </Link>
-    <nav className="flex space-x-4">
-      <HeaderButton to={"/"}>編集</HeaderButton>
-      <HeaderButton to={"/about"}>使い方</HeaderButton>
-    </nav>
-  </header>
-)
+const { Header } = Layout;
 
-export default Header;
+const AppHeader = () => (
+  <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#27272a', padding: '0 20px' }}>
+    <Link to="/" style={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}>
+      ロゴ
+    </Link>
+    <Menu mode="horizontal" theme="dark" style={{ background: 'transparent', borderBottom: 'none' }}>
+      <Menu.Item key="edit">
+        <Link to="/">
+          編集
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="about">
+        <Link to="/about">
+          使い方
+        </Link>
+      </Menu.Item>
+    </Menu>
+  </Header>
+);
+
+export default AppHeader;
