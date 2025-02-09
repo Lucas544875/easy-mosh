@@ -1,48 +1,49 @@
-import React from "react";
 import { Timeline } from '@xzdarcy/react-timeline-editor';
+import { cloneDeep } from 'lodash';
+import React, { useRef, useState } from 'react';
+import { CustomRender } from './custom';
+import './index.less';
+import {mockData, mockEffect, scale, scaleWidth, startLeft } from './mock';
+import TimelinePlayer from './player';
+import RenderButton from './RenderButton';
 
-const mockData= [{
-    id: "0",
-    actions: [
-      {
-        id: "action00",
-        start: 0,
-        end: 2,
-        effectId: "effect0",
-      },
-    ],
-  },
-  {
-    id: "1",
-    actions: [
-      {
-        id: "action10",
-        start: 1.5,
-        end: 5,
-        effectId: "effect1",
-      }
-    ],
-}]
+const defaultEditorData = cloneDeep(mockData);
 
-const mockEffect= {
-  effect0: {
-    id: "effect0",
-    name: "効果0",
-  },
-  effect1: {
-    id: "effect1",
-    name: "効果1",
-  },
+const TimelineEditor = () => {
+  const [data, setData] = useState(defaultEditorData);
+  const timelineState = useRef();
+
+  return (
+    <>
+      <div className="h-1/2 p-4 border-b flex justify-center items-center relative">
+        <video id="video-1" className="video bg-black" style={{height: "300px"}} />
+        <RenderButton
+          className="absolute bottom-4 right-4"
+          timelineState={timelineState}
+        />
+      </div>
+      <div className="h-1/2 p-4">
+        <TimelinePlayer timelineState={timelineState}/>
+        <Timeline
+          scale={scale}
+          scaleWidth={scaleWidth}
+          startLeft={startLeft}
+          autoScroll={true}
+          ref={timelineState}
+          editorData={data}
+          effects={mockEffect}
+          onChange={(data) => {
+            setData(data);
+          }}
+          getActionRender={(action, row) => {
+            if (action.effectId === 'effect') {
+              return <CustomRender action={action} row={row} />;
+            }
+          }}
+        />
+      </div>
+    </>
+  );
 };
-
-const TimelineEditor = ({videos}) => (
-  <div className="space-y-2">
-    <h2 className="text-xl font-semibold">タイムライン</h2>
-    <Timeline
-      editorData={mockData}
-      effects={mockEffect}
-    />
-  </div> 
-)
 
 export default TimelineEditor;

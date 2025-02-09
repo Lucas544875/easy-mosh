@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SrcArea from '@features/src-area/SrcArea';
-import Preview from '@features/preview/Preview';
 import TimelineEditor from '@features/timeline/Timeline';
 
 const DatamoshEditor = () => {
@@ -14,15 +13,8 @@ const DatamoshEditor = () => {
           {/* Source Area */}
           <SrcArea />
         </div>
-        <div className="col-span-2">
-          {/* Preview Section */}
-          <div className="h-1/2 p-4 border-b">
-            <Preview selectedVideo={selectedVideo} />
-          </div>
-          {/* Timeline Section */}
-          <div className="h-1/2 p-4">
-            <TimelineEditor videos={videos} />
-          </div>
+        <div className="col-span-2 timeline-editor-engine">
+          <TimelineEditor/>
         </div>
       </div>
     </div>
