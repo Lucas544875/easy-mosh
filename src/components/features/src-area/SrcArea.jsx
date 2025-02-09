@@ -45,7 +45,7 @@ const SrcAreaa = () => {
         id="video-upload"
         onChange={handleFileChange}
       />
-      <label htmlFor="video-upload" className="absolute bottom-4 right-4 bg-slate-500 p-3 rounded-full cursor-pointer hover:bg-slate-400">
+      <label htmlFor="video-upload" className="absolute bottom-4 right-4 bg-zinc-500 p-3 rounded-full cursor-pointer hover:bg-zinc-400">
         <img
           src={Plus}
           alt="plus"
