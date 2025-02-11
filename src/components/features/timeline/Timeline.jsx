@@ -1,13 +1,12 @@
 import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { cloneDeep } from 'lodash';
 import React, { useRef, useState } from 'react';
-import { CustomRender } from './custom';
-import './index.less';
-import {mockData, mockEffect, scale, scaleWidth, startLeft } from './mock';
-import TimelinePlayer from './player';
-import RenderButton from './RenderButton';
+import { CustomRender } from './TilmelineElemeent';
+import {defaultData, effectList, scale, scaleWidth, startLeft } from './DefaultData';
+import ControlPanel from '@features/control-panel/ControlPanel';
+import RenderButton from '@features/render-button/RenderButton';
 
-const defaultEditorData = cloneDeep(mockData);
+const defaultEditorData = cloneDeep(defaultData);
 
 const TimelineEditor = () => {
   const [data, setData] = useState(defaultEditorData);
@@ -15,7 +14,7 @@ const TimelineEditor = () => {
 
   return (
     <>
-      <div className="h-1/2 p-4 border-b flex justify-center items-center relative">
+      <div className="h-1/2 p-4 flex justify-center items-center relative">
         <video id="video-1" className="video bg-black" style={{height:"40vh"}}/>
         <RenderButton
           className="absolute bottom-4 right-4"
@@ -23,7 +22,7 @@ const TimelineEditor = () => {
         />
       </div>
       <div className="h-1/2">
-        <TimelinePlayer timelineState={timelineState}/>
+        <ControlPanel timelineState={timelineState}/>
         <Timeline
           scale={scale}
           scaleWidth={scaleWidth}
@@ -31,7 +30,7 @@ const TimelineEditor = () => {
           autoScroll={true}
           ref={timelineState}
           editorData={data}
-          effects={mockEffect}
+          effects={effectList}
           onChange={(data) => {
             setData(data);
           }}

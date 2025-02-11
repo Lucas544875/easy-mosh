@@ -5,7 +5,7 @@ export const scale = 5;
 export const startLeft = 20;
 
 
-export const mockEffect = {
+export const effectList = {
   effect: {
     id: 'effect',
     name: '動画',
@@ -31,7 +31,7 @@ export const mockEffect = {
   },
 };
 
-export const mockData = [
+export const defaultData = [
   {
     id: '1',
     actions: [

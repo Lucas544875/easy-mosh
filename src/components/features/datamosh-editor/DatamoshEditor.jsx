@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SrcArea from '@features/src-area/SrcArea';
 import TimelineEditor from '@features/timeline/Timeline';
+import './index.less';
 
 const DatamoshEditor = () => {
   const [videos, setVideos] = useState([]);

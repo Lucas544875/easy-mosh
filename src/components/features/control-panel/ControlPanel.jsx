@@ -5,7 +5,7 @@ import React, {useEffect, useState } from "react";
 const { Option } = Select;
 export const Rates = [0.2, 0.5, 1.0, 1.5, 2.0];
 
-const TimelinePlayer= ({ timelineState}) => {
+const ControlPanel= ({ timelineState}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
 
@@ -73,4 +73,4 @@ const TimelinePlayer= ({ timelineState}) => {
   );
 };
 
-export default TimelinePlayer;
+export default ControlPanel;
