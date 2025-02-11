@@ -6,8 +6,8 @@ export const startLeft = 20;
 
 
 export const effectList = {
-  effect: {
-    id: 'effect',
+  copy: {
+    id: 'copy',
     name: '動画',
     source: {
       enter: ({ action, engine, time, isPlaying }) => {
@@ -37,9 +37,9 @@ export const defaultData = [
     actions: [
       {
         id: 'action4',
-        start: 3,
-        end: 8,
-        effectId: 'effect', // 動画
+        start: 1,
+        end: 6,
+        effectId: 'copy', // 動画
         data: {
           src: '/src/assets/mov.mp4',
           name: '例1',
@@ -49,7 +49,7 @@ export const defaultData = [
         id: 'action5',
         start: 10,
         end: 15,
-        effectId: 'effect', // 動画
+        effectId: 'copy', // 動画
         data: {
           src: '/src/assets/mov.mp4',
           name: '例2',

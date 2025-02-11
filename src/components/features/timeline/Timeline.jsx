@@ -35,7 +35,7 @@ const TimelineEditor = () => {
             setData(data);
           }}
           getActionRender={(action, row) => {
-            if (action.effectId === 'effect') {
+            if (action.effectId === 'copy') {
               return <CustomRender action={action} row={row} />;
             }
           }}
