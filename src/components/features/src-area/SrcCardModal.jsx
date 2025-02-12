@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Button, Modal, Slider } from 'antd';
 import MyButton from "@common/button";
 
+const formatTime = (seconds) => {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${minutes}:${secs.toString().padStart(2, '0')}`;
+};
+
 const SrcCardModal = ({ videoSrc }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState([0, 100]); // 初期値: [開始, 終了]
@@ -45,9 +51,10 @@ const SrcCardModal = ({ videoSrc }) => {
               step={1}
               value={values}
               onChange={(newValues) => setValues(newValues)}
+              tipFormatter={(value) => formatTime(value)}
             />
           </div>
-          <div className="mt-2">開始: {values[0]} | 終了: {values[1]}</div>
+          <div className="mt-2">開始: {formatTime(values[0])} | 終了: {formatTime(values[1])}</div>
         </div>
       </Modal>
     </>
