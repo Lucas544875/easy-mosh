@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Slider } from 'antd';
 import MyButton from "@common/button";
+import "./modal.less"
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -34,6 +35,7 @@ const SrcCardModal = ({ videoSrc }) => {
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        className='modal  dark-modal'
       >
         <div className="flex flex-col items-center w-full">
           {/* プレビューエリア */}
