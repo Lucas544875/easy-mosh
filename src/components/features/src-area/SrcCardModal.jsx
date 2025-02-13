@@ -40,8 +40,18 @@ const SrcCardModal = ({ videoSrc }) => {
         <div className="flex flex-col items-center w-full">
           {/* プレビューエリア */}
           <div className="flex justify-between w-full mb-4">
-            <video src={videoSrc} controls width="45%" preload="metadata" style={{ border: '1px solid #ccc' }} />
-            <video src={videoSrc} controls width="45%" preload="metadata" style={{ border: '1px solid #ccc' }} />
+            <video 
+              src={videoSrc}
+              width="45%" 
+              preload="metadata" 
+              className='bg-black'
+            />
+            <video 
+              src={videoSrc}
+              width="45%" 
+              preload="metadata" 
+              className='bg-black'
+            />
           </div>
 
           {/* スライダー */}
