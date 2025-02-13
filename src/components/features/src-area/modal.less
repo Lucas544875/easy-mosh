@@ -36,6 +36,7 @@
 
   .ant-modal-body {
     background-color: transparent; // 背景色を透明に設定
+    padding: 0 24px;
   }
 
   .ant-modal-footer {
@@ -73,6 +74,51 @@
 
     &:hover {
       border-color: #005f99;
+    }
+  }
+
+/* === Radio.Group（ant-radio-group）用のダークモード設定 === */
+  .ant-radio-button-wrapper {
+    background-color: transparent; // 背景は透明に
+    color: #fff;
+
+    &:hover {
+      color: #ddd;
+    }
+  }
+  
+  .ant-radio-group {
+    background-color: transparent; // 背景は透明に
+    color: #fff; // テキストカラーを白に
+    padding: 16px 0; // 上下の余白を追加
+  }
+
+  .ant-radio-wrapper {
+    color: #fff;
+
+    &:hover {
+      color: #ddd;
+    }
+  }
+
+  .ant-radio {
+    .ant-radio-inner {
+      border-color: #bbb;
+
+      &:hover {
+        border-color: #007acc;
+      }
+    }
+
+    &.ant-radio-checked {
+      .ant-radio-inner {
+        background-color: #007acc;
+        border-color: #007acc;
+      }
+
+      &:after {
+        border-color: #007acc;
+      }
     }
   }
 }

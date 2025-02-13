@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Slider } from 'antd';
+import { Button, Modal, Slider, Radio} from 'antd';
 import MyButton from "@common/button";
 import "./modal.less"
 
@@ -8,6 +8,21 @@ const formatTime = (seconds) => {
   const secs = seconds % 60;
   return `${minutes}:${secs.toString().padStart(2, '0')}`;
 };
+
+const options = [
+  {
+    label: 'copy',
+    value: 'copy',
+  },
+  {
+    label: 'I-substitute',
+    value: 'I-substitute',
+  },
+  {
+    label: 'P-duplicate',
+    value: 'P-duplicate',
+  },
+];
 
 const SrcCardModal = ({ videoSrc }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,6 +53,13 @@ const SrcCardModal = ({ videoSrc }) => {
         className='modal'
       >
         <div className="flex flex-col items-center w-full">
+          <Radio.Group
+            block
+            options={options}
+            defaultValue="copy"
+            optionType="button"
+            buttonStyle="solid"
+          />
           {/* プレビューエリア */}
           <div className="flex justify-between">
             <video 
