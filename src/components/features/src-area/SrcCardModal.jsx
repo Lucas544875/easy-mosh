@@ -35,7 +35,7 @@ const SrcCardModal = ({ videoSrc }) => {
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        className='modal  dark-modal'
+        className='modal'
       >
         <div className="flex flex-col items-center w-full">
           {/* プレビューエリア */}
