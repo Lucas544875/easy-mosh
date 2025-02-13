@@ -39,7 +39,7 @@ const SrcCardModal = ({ videoSrc }) => {
       >
         <div className="flex flex-col items-center w-full">
           {/* プレビューエリア */}
-          <div className="flex justify-between w-full mb-4">
+          <div className="flex justify-between">
             <video 
               src={videoSrc}
               width="45%" 
@@ -55,7 +55,7 @@ const SrcCardModal = ({ videoSrc }) => {
           </div>
 
           {/* スライダー */}
-          <div className="w-full px-4">
+          <div className="w-full p-4">
             <Slider
               range
               min={0}
