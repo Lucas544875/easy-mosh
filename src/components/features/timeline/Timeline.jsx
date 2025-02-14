@@ -1,7 +1,7 @@
 import { Timeline } from '@xzdarcy/react-timeline-editor';
 import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
-import { timelineAtom } from '@atoms/atom';
+import { timelineAtom, normalizeTimeline } from '@atoms/atom';
 import { CustomRender } from './TilmelineElemeent';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
@@ -36,7 +36,7 @@ const TimelineEditor = () => {
           effects={effectList}
           dragLine={true} //スナップが効くように
           onChange={(data) => {
-            setData(data);
+            setData(normalizeTimeline(data));
           }}
           getActionRender={(action, row) => {
             if (action.effectId === 'copy') {
