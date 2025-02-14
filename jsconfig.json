@@ -4,6 +4,7 @@
     "paths": {
       "@features/*": ["src/components/features/*"],
       "@common/*": ["src/components/common/*"],
+      "@atoms/*":  ["src/components/atoms/*"],
       "@assets/*": ["src/assets/*"],
     }
   }
