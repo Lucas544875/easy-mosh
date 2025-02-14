@@ -20,7 +20,10 @@ const SrcCard = ({src, name, onDelete}) => (
     <video src={src} className="w-full mt-2" controls controlsList="nofullscreen" />
     <p className="text-center p-1" style={{margin:0}}>{name}</p>
     <div className="flex justify-center">
-      <SrcCardModal videoSrc={src} />
+      <SrcCardModal
+        videoSrc={src} 
+        name={name}
+      />
     </div>
   </Card>
 )

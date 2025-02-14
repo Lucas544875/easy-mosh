@@ -5,7 +5,7 @@ const defaultData = [
     id: '1',
     actions: [
       {
-        id: 'action4',
+        id: Date.now()-1000,
         start: 1,
         end: 6,
         effectId: 'copy', // 動画
@@ -15,7 +15,7 @@ const defaultData = [
         },
       },
       {
-        id: 'action5',
+        id: Date.now()-2000,
         start: 10,
         end: 15,
         effectId: 'copy', // 動画

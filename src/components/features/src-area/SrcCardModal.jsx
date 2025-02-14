@@ -17,10 +17,22 @@ const options = [
   { label: 'P-duplicate', value: 'P-duplicate' },
 ];
 
-const SrcCardModal = ({ videoSrc }) => {
+const maxTime = (timeline) => {
+  const actions = timeline[0].actions;
+  let max = 0;
+  actions.forEach((action) => {
+    if (action.end > max) {
+      max = action.end;
+    }
+  });
+  return max;
+};
+
+const SrcCardModal = ({ videoSrc, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rangeValues, setRangeValues] = useState([0, 0]);
   const [duration, setDuration] = useState(100);
+  const [radioValue, setRadioValue] = useState('copy');
   const startPreviewVideoRef = useRef(null);
   const endPreviewVideoRef = useRef(null);
   const [timelineData, setTimelineData] = useAtom(timelineAtom);
@@ -28,15 +40,16 @@ const SrcCardModal = ({ videoSrc }) => {
   const showModal = () => setIsModalOpen(true);
   const handleOk = () => {
     const newTimelineItem = {
-      id: 'action6',
-      start: 15,
-      end: 17,
-      effectId: 'copy', // 動画
+      id: Date.now(),
+      start: maxTime(timelineData),
+      end: maxTime(timelineData) + rangeValues[1] - rangeValues[0],
+      effectId: radioValue, // 動画
       data: {
-        src: '/src/assets/mov.mp4',
-        name: '例3',
+        src: videoSrc,
+        name: name,
       },
     }
+    // console.log(newTimelineItem);
     const newTimelineData = [{
       id: '1',
       actions: timelineData[0].actions.concat(newTimelineItem)
@@ -82,6 +95,7 @@ const SrcCardModal = ({ videoSrc }) => {
             defaultValue="copy"
             optionType="button"
             buttonStyle="solid"
+            onChange={(e) => setRadioValue(e.target.value)}
           />
           {/* プレビューエリア */}
           <div className="flex justify-between">
