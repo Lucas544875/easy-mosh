@@ -34,6 +34,7 @@ const TimelineEditor = () => {
           ref={timelineState}
           editorData={data}
           effects={effectList}
+          dragLine={true}
           onChange={(data) => {
             setData(data);
           }}
