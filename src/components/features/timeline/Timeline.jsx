@@ -2,7 +2,7 @@ import { Timeline } from '@xzdarcy/react-timeline-editor';
 import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
 import { timelineAtom, normalizeTimeline } from '@atoms/atom';
-import { CustomRender } from './TilmelineElemeent';
+import { VideoFilmStrip } from './TilmelineElemeent';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';
@@ -35,12 +35,13 @@ const TimelineEditor = () => {
           editorData={data}
           effects={effectList}
           dragLine={true} //スナップが効くように
+          rowHeight={100} // 1行の高さ
           onChange={(data) => {
             setData(normalizeTimeline(data));
           }}
           getActionRender={(action, row) => {
             if (action.effectId === 'copy') {
-              return <CustomRender action={action} row={row} />;
+              return <VideoFilmStrip action={action} row={row} />;
             }
           }}
         />
