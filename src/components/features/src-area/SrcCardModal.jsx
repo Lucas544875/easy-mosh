@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { Modal, Slider, Radio } from 'antd';
 import MyButton from "@common/button";
 import "./modal.less";
+import { useAtom } from 'jotai';
+import { timelineAtom } from '@atoms/atom';
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -15,15 +17,46 @@ const options = [
   { label: 'P-duplicate', value: 'P-duplicate' },
 ];
 
-const SrcCardModal = ({ videoSrc }) => {
+const maxTime = (timeline) => {
+  const actions = timeline[0].actions;
+  let max = 0;
+  actions.forEach((action) => {
+    if (action.end > max) {
+      max = action.end;
+    }
+  });
+  return max;
+};
+
+const SrcCardModal = ({ videoSrc, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rangeValues, setRangeValues] = useState([0, 0]);
   const [duration, setDuration] = useState(100);
+  const [radioValue, setRadioValue] = useState('copy');
   const startPreviewVideoRef = useRef(null);
   const endPreviewVideoRef = useRef(null);
+  const [timelineData, setTimelineData] = useAtom(timelineAtom);
 
   const showModal = () => setIsModalOpen(true);
-  const handleOk = () => setIsModalOpen(false);
+  const handleOk = () => {
+    const newTimelineItem = {
+      id: Date.now(),
+      start: maxTime(timelineData),
+      end: maxTime(timelineData) + rangeValues[1] - rangeValues[0],
+      effectId: radioValue, // 動画
+      data: {
+        src: videoSrc,
+        name: name,
+      },
+    }
+    // console.log(newTimelineItem);
+    const newTimelineData = [{
+      id: '1',
+      actions: timelineData[0].actions.concat(newTimelineItem)
+    }]
+    setTimelineData(newTimelineData);
+    setIsModalOpen(false);
+  };
   const handleCancel = () => setIsModalOpen(false);
 
   const handleLoadedMetadata = (e) => {
@@ -62,6 +95,7 @@ const SrcCardModal = ({ videoSrc }) => {
             defaultValue="copy"
             optionType="button"
             buttonStyle="solid"
+            onChange={(e) => setRadioValue(e.target.value)}
           />
           {/* プレビューエリア */}
           <div className="flex justify-between">
