@@ -1,9 +1,8 @@
 import { Timeline } from '@xzdarcy/react-timeline-editor';
-import { cloneDeep } from 'lodash';
-import React, { useRef, useState } from 'react';
-import { CustomRender } from './TilmelineElemeent';
+import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
 import { timelineAtom } from '@atoms/atom';
+import { CustomRender } from './TilmelineElemeent';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';

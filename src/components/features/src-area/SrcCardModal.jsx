@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { Modal, Slider, Radio } from 'antd';
 import MyButton from "@common/button";
 import "./modal.less";
+import { useAtom } from 'jotai';
+import { timelineAtom } from '@atoms/atom';
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -21,9 +23,27 @@ const SrcCardModal = ({ videoSrc }) => {
   const [duration, setDuration] = useState(100);
   const startPreviewVideoRef = useRef(null);
   const endPreviewVideoRef = useRef(null);
+  const [timelineData, setTimelineData] = useAtom(timelineAtom);
 
   const showModal = () => setIsModalOpen(true);
-  const handleOk = () => setIsModalOpen(false);
+  const handleOk = () => {
+    const newTimelineItem = {
+      id: 'action6',
+      start: 15,
+      end: 17,
+      effectId: 'copy', // 動画
+      data: {
+        src: '/src/assets/mov.mp4',
+        name: '例3',
+      },
+    }
+    const newTimelineData = [{
+      id: '1',
+      actions: timelineData[0].actions.concat(newTimelineItem)
+    }]
+    setTimelineData(newTimelineData);
+    setIsModalOpen(false);
+  };
   const handleCancel = () => setIsModalOpen(false);
 
   const handleLoadedMetadata = (e) => {
