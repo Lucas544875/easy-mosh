@@ -9,6 +9,7 @@ const defaultData = [
         start: 1,
         end: 6,
         effectId: 'copy', // 動画
+        flexible: false,
         data: {
           src: '/src/assets/mov.mp4',
           name: '例1',
@@ -18,6 +19,7 @@ const defaultData = [
         id: Date.now()-2000,
         start: 10,
         end: 15,
+        flexible: false,
         effectId: 'copy', // 動画
         data: {
           src: '/src/assets/mov.mp4',

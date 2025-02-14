@@ -34,7 +34,7 @@ const TimelineEditor = () => {
           ref={timelineState}
           editorData={data}
           effects={effectList}
-          dragLine={true}
+          dragLine={true} //スナップが効くように
           onChange={(data) => {
             setData(data);
           }}
