@@ -52,7 +52,7 @@ const SrcCardModal = ({ videoSrc }) => {
         onCancel={handleCancel}
         className='modal'
       >
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full gap-4">
           <Radio.Group
             block
             options={options}
@@ -77,7 +77,7 @@ const SrcCardModal = ({ videoSrc }) => {
           </div>
 
           {/* スライダー */}
-          <div className="w-full p-4">
+          <div className="w-full px-4">
             <Slider
               range
               min={0}
