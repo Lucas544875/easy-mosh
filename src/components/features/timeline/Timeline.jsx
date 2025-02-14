@@ -2,14 +2,18 @@ import { Timeline } from '@xzdarcy/react-timeline-editor';
 import { cloneDeep } from 'lodash';
 import React, { useRef, useState } from 'react';
 import { CustomRender } from './TilmelineElemeent';
-import {defaultData, effectList, scale, scaleWidth, startLeft } from './DefaultData';
+import { useAtom } from 'jotai';
+import { timelineAtom } from '@atoms/atom';
+import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';
 
-const defaultEditorData = cloneDeep(defaultData);
+// const defaultEditorData = cloneDeep(defaultData);
+
 
 const TimelineEditor = () => {
-  const [data, setData] = useState(defaultEditorData);
+  // const [data, setData] = useState(defaultEditorData);
+  const [data, setData] = useAtom(timelineAtom);
   const timelineState = useRef();
 
   return (
