@@ -14,6 +14,8 @@ const defaultData = [
         data: {
           src: '/src/assets/mov.mp4',
           name: '例1',
+          cripStart: 0,
+          cripEnd: 5
         },
       },
       {
@@ -25,6 +27,8 @@ const defaultData = [
         data: {
           src: '/src/assets/mov.mp4',
           name: '例2',
+          cripStart: 0,
+          cripEnd: 5
         },
       },
     ],

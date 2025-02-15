@@ -48,6 +48,8 @@ const SrcCardModal = ({ videoSrc, name }) => {
       data: {
         src: videoSrc,
         name: name,
+        cripStart: rangeValues[0],
+        cripEnd: rangeValues[1],
       },
     }
     // console.log(newTimelineItem);

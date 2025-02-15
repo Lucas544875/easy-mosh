@@ -12,20 +12,25 @@ export const effectList = {
     source: {
       enter: ({ action, engine, time, isPlaying }) => {
         const src = (action).data.src;
-        videoControl.enter({src, startTime: action.start, time, engine,isPlaying });
+        const cripStart = (action).data.cripStart;
+        videoControl.enter({src, startTime: action.start, time, engine,isPlaying, cripStart });
       },
       update: ({ action, time }) => {
-        videoControl.update({startTime: action.start, time });
+        const cripStart = action.data.cripStart;
+        videoControl.update({startTime: action.start, time, cripStart });
       },
       leave: ({ action, time, isPlaying }) => {
-        videoControl.leave({startTime: action.start, endTime: action.end, time, isPlaying });
+        const cripStart = action.data.cripStart;
+        videoControl.leave({startTime: action.start + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart });
       },
       stop: ({ action, time, isPlaying }) => {
-        videoControl.stop({startTime: action.start, time, isPlaying });
+        const cripStart = action.data.cripStart;
+        videoControl.stop({startTime: action.start, time, isPlaying, cripStart });
       },
       start: ({ action, engine, time, isPlaying }) => {
         const src = (action).data.src;
-        videoControl.enter({src, startTime: action.start, time, engine,isPlaying });
+        const cripStart = action.data.cripStart;
+        videoControl.enter({src, startTime: action.start, time, engine,isPlaying, cripStart });
       },
     },
   },
