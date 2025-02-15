@@ -66,13 +66,22 @@ const VideoFilmStrip = ({ action, frameCount = 5 }) => {
         preload="metadata"
       />
 
-      <div style={{ display: "flex", overflowX: "clip", gap: "8px" }}>
+      <div style={{ 
+        display: "flex",
+        overflowX: "clip",
+        gap: "4px",
+      }}>
         {thumbnails.map((thumb, index) => (
           <img
             key={index}
             src={thumb}
             alt={`frame-${index}`}
-            style={{ maxHeight: 100 }}
+            style={{ 
+              width: 160,
+              height: 92,
+              objectFit: "cover",
+              borderRadius: 4,
+            }}
           />
         ))}
       </div>
