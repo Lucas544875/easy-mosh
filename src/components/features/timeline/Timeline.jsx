@@ -2,7 +2,7 @@ import { Timeline } from '@xzdarcy/react-timeline-editor';
 import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
 import { timelineAtom, normalizeTimeline } from '@atoms/atom';
-import { VideoFilmStrip } from './TilmelineElemeent';
+import { CopyRender } from './TilmelineElemeent';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';
@@ -41,7 +41,7 @@ const TimelineEditor = () => {
           }}
           getActionRender={(action, row) => {
             if (action.effectId === 'copy') {
-              return <VideoFilmStrip action={action} row={row} />;
+              return <CopyRender action={action} row={row} />;
             }
           }}
         />
