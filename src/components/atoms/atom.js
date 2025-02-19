@@ -95,3 +95,17 @@ export const deleteItem = (timelineData, actionId) => {
   }];
   return newTimelineData;
 }
+
+export const copyItem = (timelineData, actionId) => {
+  const actions = cloneDeep(timelineData[0].actions);
+  const action = actions.find(action => action.id === actionId);
+  const newAction = cloneDeep(action);
+  newAction.id = Date.now();
+  const newActions = actions.concat(newAction);
+  const newTimelineData = [{
+    id: '1',
+    actions: newActions
+  }];
+  
+  return normalizeTimeline(newTimelineData);
+}
