@@ -2,6 +2,7 @@ import React from "react";
 import { Dropdown, Menu } from "antd";
 import { useAtom } from 'jotai';
 import { timelineAtom, deleteItem } from "@atoms/atom";
+import "./delete-menu.less";
 
 const DeleteMenu = ({ action, children }) => {
   const id = action.id;
@@ -14,13 +15,16 @@ const DeleteMenu = ({ action, children }) => {
   return (
     <Dropdown
       overlay={
-        <Menu>
-          <Menu.Item
-            onClick={handleDeleteItem}
-          >
-            削除
-          </Menu.Item>
-        </Menu>
+        <div className="delete-menu">
+          <Menu>
+            <Menu.Item
+              onClick={handleDeleteItem}
+              className="danger-item"
+            >
+              削除
+            </Menu.Item>
+          </Menu>
+        </div>
       }
       trigger={["contextMenu"]}
     >
