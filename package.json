@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@tailwindcss/vite": "^4.0.3",
     "@xzdarcy/react-timeline-editor": "^0.1.9",
     "antd": "4.21.6",
