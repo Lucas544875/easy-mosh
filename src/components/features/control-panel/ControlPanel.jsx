@@ -1,6 +1,8 @@
-import { CaretRightOutlined, PauseOutlined } from "@ant-design/icons";
-import { Select } from "antd";
+import { CaretRightOutlined, PauseOutlined, MergeCellsOutlined } from "@ant-design/icons";
+import { Select, Tooltip } from "antd";
 import React, {useEffect, useState } from "react";
+import { useAtom } from 'jotai';
+import { timelineAtom, sortTimeline } from '@atoms/atom';
 
 const { Option } = Select;
 export const Rates = [0.2, 0.5, 1.0, 1.5, 2.0];
@@ -8,6 +10,7 @@ export const Rates = [0.2, 0.5, 1.0, 1.5, 2.0];
 const ControlPanel= ({ timelineState}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
+  const [data, setData] = useAtom(timelineAtom);
 
   useEffect(() => {
     if (!timelineState.current) return;
@@ -51,6 +54,10 @@ const ControlPanel= ({ timelineState}) => {
     return <>{`${min}:${second}.${float.replace("0.", "")}`}</>;
   };
 
+  const handleSort = () => {
+    setData(sortTimeline(data));
+  }
+
   return (
     <div className="timeline-player">
       <div className="play-control" onClick={handlePlayOrPause}>
@@ -69,6 +76,9 @@ const ControlPanel= ({ timelineState}) => {
           ))}
         </Select>
       </div>
+      <Tooltip title="間隔の削除">
+        <MergeCellsOutlined onClick={handleSort}/>
+      </Tooltip>
     </div>
   );
 };

@@ -70,7 +70,7 @@ export const sortTimeline = (timelineData) => {
   actions.sort((a, b) => a.start - b.start);
   let startTime = 0;
   for (let i = 0; i < actions.length; i++) {
-    if (actions[i].start < startTime) {
+    if (actions[i].start > startTime) {
       const duration = actions[i].end - actions[i].start;
       actions[i].start = startTime;
       actions[i].end = startTime + duration;
