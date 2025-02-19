@@ -1,5 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Dropdown, Menu } from "antd";
 import VideoFilmStrip from "./VideoFilmStlip";
+
+const menu = (
+  <Menu>
+    <Menu.Item>削除</Menu.Item>
+  </Menu>
+);
 
 export const CopyRender = ({ action }) => {
   const itemRef = useRef(null);
@@ -24,6 +31,10 @@ export const CopyRender = ({ action }) => {
   }, []);
 
   return (
+    <Dropdown
+      overlay={menu}
+      trigger={["contextMenu"]}
+    >
     <div
       ref={itemRef}
       style={{
@@ -85,5 +96,6 @@ export const CopyRender = ({ action }) => {
         />
       </div>
     </div>
+    </Dropdown>
   );
 };
