@@ -1,0 +1,22 @@
+@import "antd/dist/antd.css";
+
+@dark-bg: #1e1e1e;
+@dark-text: #ffffff;
+@dark-hover: #333333;
+
+.delete-menu{
+  .ant-dropdown-menu {
+    background-color: @dark-bg !important;
+  }
+
+  .ant-dropdown-menu-item {
+    color: @dark-text;
+    &.danger-item {
+      color: #fb2c36;
+    }
+
+    &:hover {
+      background-color: @dark-hover;
+    }
+  }
+}
