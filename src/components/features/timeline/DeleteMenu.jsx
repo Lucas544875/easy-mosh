@@ -1,16 +1,27 @@
 import React from "react";
 import { Dropdown, Menu } from "antd";
+import { useAtom } from 'jotai';
+import { timelineAtom, deleteItem } from "@atoms/atom";
 
-const menu = (
-  <Menu>
-    <Menu.Item>削除</Menu.Item>
-  </Menu>
-);
-
-const TimelineItemDeleteMenu = ({ children }) => {
+const DeleteMenu = ({ action, children }) => {
+  const id = action.id;
+  const [Timeline, setTimeline] = useAtom(timelineAtom);
+  
+  const handleDeleteItem = (e) => {
+    setTimeline(deleteItem(Timeline, id))
+  }
+  
   return (
     <Dropdown
-      overlay={menu}
+      overlay={
+        <Menu>
+          <Menu.Item
+            onClick={handleDeleteItem}
+          >
+            削除
+          </Menu.Item>
+        </Menu>
+      }
       trigger={["contextMenu"]}
     >
       {children}
@@ -18,4 +29,4 @@ const TimelineItemDeleteMenu = ({ children }) => {
   );
 }
 
-export default TimelineItemDeleteMenu;
+export default DeleteMenu;

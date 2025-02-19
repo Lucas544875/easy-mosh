@@ -25,7 +25,9 @@ export const CopyRender = ({ action }) => {
   }, []);
 
   return (
-    <DeleteMenu>
+    <DeleteMenu
+      action = {action}
+    >
       <div
         ref={itemRef}
         style={{

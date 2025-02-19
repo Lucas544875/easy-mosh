@@ -86,4 +86,12 @@ export const sortTimeline = (timelineData) => {
   return newTimelineData;
 }
 
-
+export const deleteItem = (timelineData, actionId) => {
+  const actions = cloneDeep(timelineData[0].actions);
+  const newActions = actions.filter(action => action.id !== actionId);
+  const newTimelineData = [{
+    id: '1',
+    actions: newActions
+  }];
+  return newTimelineData;
+}
