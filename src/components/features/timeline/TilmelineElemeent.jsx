@@ -1,12 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Dropdown, Menu } from "antd";
 import VideoFilmStrip from "./VideoFilmStlip";
-
-const menu = (
-  <Menu>
-    <Menu.Item>削除</Menu.Item>
-  </Menu>
-);
+import DeleteMenu from "./DeleteMenu";
 
 export const CopyRender = ({ action }) => {
   const itemRef = useRef(null);
@@ -31,71 +25,68 @@ export const CopyRender = ({ action }) => {
   }, []);
 
   return (
-    <Dropdown
-      overlay={menu}
-      trigger={["contextMenu"]}
-    >
-    <div
-      ref={itemRef}
-      style={{
-        width: "100%",
-        height: "100%",
-        borderRadius: "8px",
-        backgroundColor: "#191b1d",
-        border: "4px solid #5297ff",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <DeleteMenu>
       <div
+        ref={itemRef}
         style={{
-          position: "absolute",
+          width: "100%",
           height: "100%",
-          width: "10px",
-          left: "0%",
-          backgroundColor: "#5297ff",
+          borderRadius: "8px",
+          backgroundColor: "#191b1d",
+          border: "4px solid #5297ff",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         <div
           style={{
             position: "absolute",
-            top: "25%",
-            borderRadius: 5,
-            height: "50%",
-            width: "5px",
+            height: "100%",
+            width: "10px",
             left: "0%",
-            backgroundColor: "black",
+            backgroundColor: "#5297ff",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: "25%",
+              borderRadius: 5,
+              height: "50%",
+              width: "5px",
+              left: "0%",
+              backgroundColor: "black",
+            }}
+          />
+        </div>
+        <VideoFilmStrip action={action} frameCount={frameCount}
+          style={{
+            position: "absolute",
           }}
         />
-      </div>
-      <VideoFilmStrip action={action} frameCount={frameCount}
-        style={{
-          position: "absolute",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          height: "100%",
-          width: "10px",
-          right: "0%",
-          top: "0%",
-          backgroundColor: "#5297ff",
-        }}
-      >
         <div
           style={{
             position: "absolute",
-            top: "25%",
-            borderRadius: 5,
-            height: "50%",
-            width: "5px",
+            height: "100%",
+            width: "10px",
             right: "0%",
-            backgroundColor: "black",
+            top: "0%",
+            backgroundColor: "#5297ff",
           }}
-        />
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: "25%",
+              borderRadius: 5,
+              height: "50%",
+              width: "5px",
+              right: "0%",
+              backgroundColor: "black",
+            }}
+          />
+        </div>
       </div>
-    </div>
-    </Dropdown>
+    </DeleteMenu>
   );
 };
