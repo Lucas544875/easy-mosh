@@ -1,12 +1,12 @@
 import { Timeline } from '@xzdarcy/react-timeline-editor';
 import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
-import { timelineAtom } from '@atoms/atom';
-import { CustomRender } from './TilmelineElemeent';
+import { timelineAtom, normalizeTimeline } from '@atoms/atom';
+import { CopyRender } from './TilmelineElemeent';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';
-
+import './timeline.less';
 // const defaultEditorData = cloneDeep(defaultData);
 
 
@@ -34,12 +34,14 @@ const TimelineEditor = () => {
           ref={timelineState}
           editorData={data}
           effects={effectList}
+          dragLine={true} //スナップが効くように
+          rowHeight={100} // 1行の高さ
           onChange={(data) => {
-            setData(data);
+            setData(normalizeTimeline(data));
           }}
           getActionRender={(action, row) => {
             if (action.effectId === 'copy') {
-              return <CustomRender action={action} row={row} />;
+              return <CopyRender action={action} row={row} />;
             }
           }}
         />

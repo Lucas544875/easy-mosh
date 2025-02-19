@@ -10,12 +10,16 @@ class VideoControl {
     }
   }
 
-  enter({src, startTime, time, engine, isPlaying }) {
+  enter({src, startTime, time, engine, isPlaying, cripStart }) {
     if (this.video) {
       if (this.video.src !== src) {
         this.video.src = src;
+        this.video.addEventListener("loadedmetadata", () => {
+          this._seekTo(time - startTime + cripStart);
+        }, { once: true });
+      }else{
+        this._seekTo(time - startTime + cripStart);
       }
-      this._seekTo(time - startTime);
     } else {
       this.video = document.getElementById("video-1");
       if (this.video.src !== src) {
@@ -24,9 +28,8 @@ class VideoControl {
       this.video.setAttribute("playsinline", "true");
       this.video.setAttribute("preload", "auto");
       this.video.loop = true;
-      
       this.video.addEventListener("loadedmetadata", () => {
-        this._seekTo(time - startTime);
+        this._seekTo(time - startTime + cripStart);
       }, { once: true });
     }
     if (isPlaying && this.video.paused) {
@@ -35,24 +38,24 @@ class VideoControl {
     }
   }
 
-  update({startTime, time}) {
+  update({startTime, time, cripStart }) {
     if (!this.video) return;
-    this._seekTo(time - startTime);
+    this._seekTo(time - startTime + cripStart);
   }
 
-  leave({startTime, endTime, time, isPlaying }) {
+  leave({startTime, endTime, time, isPlaying, cripStart }) {
     if (!this.video) return;
     if (time <= endTime && time >= startTime) {
-      this._seekTo(time - startTime);
+      this._seekTo(time - startTime + cripStart);
     }
     if (isPlaying && !this.video.paused) {
       this.video.pause();
     }
   }
   
-  stop({startTime, time, isPlaying }) {
+  stop({startTime, time, isPlaying, cripStart }) {
     if (!this.video) return;
-    this._seekTo(time - startTime);
+    this._seekTo(time - startTime + cripStart);
     if (!isPlaying && !this.video.paused) {
       this.video.pause();
     }

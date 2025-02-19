@@ -44,9 +44,12 @@ const SrcCardModal = ({ videoSrc, name }) => {
       start: maxTime(timelineData),
       end: maxTime(timelineData) + rangeValues[1] - rangeValues[0],
       effectId: radioValue, // 動画
+      flexible: false,
       data: {
         src: videoSrc,
         name: name,
+        cripStart: rangeValues[0],
+        cripEnd: rangeValues[1],
       },
     }
     // console.log(newTimelineItem);
