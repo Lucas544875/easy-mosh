@@ -90,5 +90,5 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   // return { mergeVideos, outputUrl, isProcessing, isLoaded };
-  return { load, loaded, transcode, mergeVideos };
+  return { mergeVideos, isProcessing};
 }
