@@ -19,10 +19,7 @@ const TimelineEditor = () => {
     <>
       <div className="h-1/2 p-4 flex justify-center items-center relative">
         <video id="video-1" className="video bg-black" style={{height:"40vh"}}/>
-        <RenderButton
-          className="absolute bottom-4 right-4"
-          timelineState={timelineState}
-        />
+        <RenderButton/>
       </div>
       <div className="h-1/2">
         <ControlPanel timelineState={timelineState}/>

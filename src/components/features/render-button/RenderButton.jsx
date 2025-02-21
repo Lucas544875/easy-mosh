@@ -6,7 +6,7 @@ import { timelineAtom } from '@atoms/atom';
 import { useFfmpeg } from "./useFfmpeg";
 import './modal.less';
 
-const RenderButton = ({className}) => {
+const RenderButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useAtom(timelineAtom);
   const videoRef = React.useRef(null);
@@ -38,7 +38,7 @@ const RenderButton = ({className}) => {
       <Tooltip title="整列してレンダリング">
         <Button 
           onClick={handleRender}
-          className={`bg-zinc-600 text-white ${className}`}
+          className={`bg-zinc-600 text-white absolute bottom-4 right-4`}
         >
           レンダリング
         </Button>
