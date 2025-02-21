@@ -37,11 +37,11 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   async function mergeVideos(actions) {
+    setIsProcessing(true);
     if (!loaded){
       await load();
       setLoaded(true);
     }
-    setIsProcessing(true);
     const ffmpeg = ffmpegRef.current;
 
     try {
