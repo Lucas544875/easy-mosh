@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@common/button";
 import { Tooltip, Modal } from "antd";
 import { useAtom } from 'jotai';
-import { timelineAtom } from '@atoms/atom';
+import { timelineAtom, sortTimeline } from '@atoms/atom';
 import { useFfmpeg } from "./useFfmpeg";
 import './modal.less';
 
@@ -19,9 +19,9 @@ const RenderButton = () => {
   
   const handleRender = () => {
     setIsModalOpen(true);
-    const videoUrls = data[0].actions.map((action) => action.data.src);
-    console.log(videoUrls);
-    mergeVideos(videoUrls);
+    const actions = data[0].actions;
+    setData(sortTimeline(data));
+    mergeVideos(actions);
   }
 
   const handleOk = () => {
@@ -43,7 +43,7 @@ const RenderButton = () => {
         </Button>
       </Tooltip>
       <Modal
-        title="レンダリング結果"
+        title="レンダリング中"
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
