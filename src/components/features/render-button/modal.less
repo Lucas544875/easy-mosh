@@ -36,12 +36,10 @@
 
   .ant-modal-body {
     background-color: transparent; // 背景色を透明に設定
-    padding: 0 24px;
-  }
-
-  .ant-modal-footer {
-    background-color: @color-zinc-800;
-    border-top: 0;
+    .result-video{
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .ant-btn-primary {
@@ -52,6 +50,17 @@
       background-color: #005f99;
       border-color: #005f99;
     }
+    &[disabled] {
+      background-color: #444;
+      border-color: #555;
+      color: #fff;
+      &:hover {
+        background-color: #666;
+        border-color: #777;
+        color: #fff;
+      }
+    }
+
   }
 
   .ant-btn-default {
@@ -63,62 +72,6 @@
       background-color: #666;
       border-color: #777;
       color: #fff;
-    }
-  }
-
-  .ant-slider-track {
-    background-color: #007acc;
-  }
-
-  .ant-slider-handle {
-    border-color: #007acc;
-
-    &:hover {
-      border-color: #005f99;
-    }
-  }
-
-/* === Radio.Group（ant-radio-group）用のダークモード設定 === */
-  .ant-radio-button-wrapper {
-    background-color: transparent; // 背景は透明に
-    color: #fff;
-
-    &:hover {
-      color: #ddd;
-    }
-  }
-  
-  .ant-radio-group {
-    background-color: transparent; // 背景は透明に
-    color: #fff; // テキストカラーを白に
-  }
-
-  .ant-radio-wrapper {
-    color: #fff;
-
-    &:hover {
-      color: #ddd;
-    }
-  }
-
-  .ant-radio {
-    .ant-radio-inner {
-      border-color: #bbb;
-
-      &:hover {
-        border-color: #007acc;
-      }
-    }
-
-    &.ant-radio-checked {
-      .ant-radio-inner {
-        background-color: #007acc;
-        border-color: #007acc;
-      }
-
-      &:after {
-        border-color: #007acc;
-      }
     }
   }
 }
