@@ -60,7 +60,7 @@ const RenderButton = () => {
               Cancel
             </Button>
             <Button key="submit" type="primary" onClick={handleOk} disabled={isProcessing}>
-              <a href={videoRef.current.src} download="output.mp4">
+              <a href={!videoRef ? videoRef.current.src :""} download="output.mp4">
                 Download
               </a>
             </Button>
