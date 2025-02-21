@@ -72,10 +72,18 @@ const RenderButton = () => {
           ref = {videoRef}
           controls
         />
-        <p>レンダリング中…
-          <LoadingOutlined />
+        <p className="m-2">
+          ログ出力
         </p>
-        <p ref = {messageRef}></p>
+        <div className="bg-zinc-700 p-2">
+          <p 
+            // タイプライタ体にする
+            ref = {messageRef}
+            className="h-10 overflow-y-hidden"
+            style={{fontFamily: "monospace"}}
+          />
+
+        </div>
       </Modal>
     </>
   )
