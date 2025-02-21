@@ -36,32 +36,45 @@ export function useFfmpeg({videoRef, messageRef}) {
       URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
   }
 
-  async function mergeVideos(videoUrls) {
-    await load();
-    // if (!loaded) return;
-    console.log('動画の連結を開始します:', videoUrls);
+  async function mergeVideos(actions) {
+    if (!loaded){
+      await load();
+      setLoaded(true);
+    }
     setIsProcessing(true);
     const ffmpeg = ffmpegRef.current;
 
     try {
       // FFmpegの仮想ファイルシステムに動画を書き込む
-      console.log('動画の書き込みを開始します');
       const fileNames = [];
-      for (let i = 0; i < videoUrls.length; i++) {
+      for (let i = 0; i < actions.length; i++) {
+        const src = actions[i].data.src
+        const start = actions[i].data.cripStart;
+        const end = actions[i].data.cripEnd;
         const fileName = `video${i}.mp4`;
-        const videoData = await fetchFile(videoUrls[i]); // objectURL から取得
+        const cutFileName = `cut${i}.mp4`;
+
+        const videoData = await fetchFile(src); // objectURL から取得
         ffmpeg.writeFile(fileName, videoData);
-        fileNames.push(fileName);
+        await ffmpeg.exec([
+          "-i", fileName,
+          "-ss", start.toString(),
+          "-to", end.toString(),
+          cutFileName,
+        ])
+        
+        fileNames.push(cutFileName);
       }
 
       // FFmpeg のリストファイルを作成（連結に使用）
-      console.log('動画のリストファイルを作成します:', fileNames);
       const listFileContent = fileNames.map(name => `file '${name}'`).join('\n');
-      ffmpeg.writeFile('fileList.txt', new TextEncoder().encode(listFileContent));
+      await ffmpeg.writeFile('fileList.txt', new TextEncoder().encode(listFileContent));
 
       // FFmpegで動画を連結
-      console.log('動画の連結を実行します',listFileContent);
-      await ffmpeg.exec(['-safe', '0', '-f', 'concat', '-i', 'fileList.txt', '-c', 'copy', 'output.mp4']);
+      await ffmpeg.exec([
+        '-f', 'concat', '-i', 'fileList.txt',
+        '-c', 'copy', 'output.mp4'
+      ]);
 
       // 結果の動画を取得
       const data = await ffmpeg.readFile('output.mp4');
@@ -69,7 +82,6 @@ export function useFfmpeg({videoRef, messageRef}) {
       const videoUrl = URL.createObjectURL(videoBlob);
       videoRef.current.src = videoUrl;
       // setOutputUrl(videoUrl);
-      console.log('動画の連結が完了しました:', videoUrl);
     } catch (error) {
       console.error('動画の連結に失敗しました:', error);
     } finally {
