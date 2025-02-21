@@ -11,18 +11,17 @@ const RenderButton = () => {
   const [data, setData] = useAtom(timelineAtom);
   const videoRef = React.useRef(null);
   const messageRef = React.useRef(null);
-  const { load, loaded, transcode } = useFfmpeg({videoRef:videoRef, messageRef:messageRef});
+  const { load, loaded, transcode, mergeVideos } 
+    = useFfmpeg({
+      videoRef:videoRef,
+      messageRef:messageRef
+    });
   
   const handleRender = () => {
     setIsModalOpen(true);
-    console.log(data);
     const videoUrls = data[0].actions.map((action) => action.data.src);
     console.log(videoUrls);
-    (async function () {
-      await load();
-      console.log(loaded);
-      transcode();
-    }())
+    mergeVideos(videoUrls);
   }
 
   const handleOk = () => {

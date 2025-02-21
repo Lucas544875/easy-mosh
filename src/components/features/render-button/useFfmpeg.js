@@ -33,6 +33,11 @@ export function useFfmpeg({videoRef, messageRef}) {
     videoRef.current.src =
       URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
   }
+
+  const mergeVideos = async (videoUrls) => {
+    load();
+    transcode();
+  }
   // async function mergeVideos(videoUrls) {
   //   if (!isLoaded) return;
   //   setIsProcessing(true);
@@ -69,5 +74,5 @@ export function useFfmpeg({videoRef, messageRef}) {
   // }
 
   // return { mergeVideos, outputUrl, isProcessing, isLoaded };
-  return { load, loaded, transcode };
+  return { load, loaded, transcode, mergeVideos };
 }
