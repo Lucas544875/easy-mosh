@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MyButton from "@common/button";
 import { Tooltip, Modal, Button } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import { useAtom } from 'jotai';
 import { timelineAtom, sortTimeline } from '@atoms/atom';
 import { useFfmpeg } from "./useFfmpeg";
@@ -27,7 +28,6 @@ const RenderButton = () => {
   const handleOk = () => {
     setIsModalOpen(false);
     videoRef.current.src = '';
-    console.log('ok');
   }
 
   const handleCancel = () => {}
@@ -39,7 +39,7 @@ const RenderButton = () => {
 
   return(   
     <>
-      <Tooltip title="整列してレンダリング">
+      <Tooltip title="間隔を削除してレンダリング">
         <MyButton
           onClick={handleRender}
           className={`bg-zinc-600 text-white absolute bottom-4 right-4`}
@@ -51,7 +51,7 @@ const RenderButton = () => {
         title={isProcessing ? "レンダリング中" : "レンダリング結果"}
         visible={isModalOpen}
         onOk={handleOk}
-        // onCancel={handleCancel}
+        onCancel={handleCancel}
         className='modal'
         closable={false}
         footer={
@@ -60,7 +60,9 @@ const RenderButton = () => {
               Cancel
             </Button>
             <Button key="submit" type="primary" onClick={handleOk} disabled={isProcessing}>
-              Download
+              <a href={videoRef.current.src} download="output.mp4">
+                Download
+              </a>
             </Button>
           </>
         }
@@ -70,7 +72,9 @@ const RenderButton = () => {
           ref = {videoRef}
           controls
         />
-        <p>レンダリング中…</p>
+        <p>レンダリング中…
+          <LoadingOutlined />
+        </p>
         <p ref = {messageRef}></p>
       </Modal>
     </>
