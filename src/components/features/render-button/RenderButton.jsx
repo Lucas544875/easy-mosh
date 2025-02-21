@@ -48,7 +48,7 @@ const RenderButton = () => {
         </MyButton>
       </Tooltip>
       <Modal
-        title={isProcessing ? "レンダリング中" : "レンダリング結果"}
+        title={isProcessing ? (<>レンダリング中 <LoadingOutlined style={{ verticalAlign: "middle" }} /></>) : "レンダリング結果"}
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
