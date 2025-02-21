@@ -2,17 +2,16 @@ import React, { useState, useRef } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
-export function useFfmpeg(videoRef) {
+export function useFfmpeg({videoRef, messageRef}) {
   const [loaded, setLoaded] = useState(false);
   const ffmpegRef = useRef(new FFmpeg());
-  const messageRef = useRef(null);
 
   const load = async () => {
     try {
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm'
       const ffmpeg = ffmpegRef.current;
       ffmpeg.on('log', ({ message }) => {
-        // messageRef.current.innerHTML = message;
+        messageRef.current.innerHTML = message;
         console.log(message);
       });
       // toBlobURL is used to bypass CORS issue, urls with the same domain can be used directly.
