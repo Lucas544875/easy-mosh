@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Slider } from 'antd';
 
 const formatTime = (seconds) => {
@@ -39,6 +39,16 @@ const CImenu = ({videoSrc, name, setItemDuration, setItemData}) => {
       endPreviewVideoRef.current.currentTime = newValues[1];
     }
   };
+
+  useEffect(() => {
+    setItemData({
+      src: videoSrc,
+      name: name,
+      cripStart: 0,
+      cripEnd: duration,
+    });
+    setItemDuration(duration);
+  }, [duration]);
   
   return (
     <>

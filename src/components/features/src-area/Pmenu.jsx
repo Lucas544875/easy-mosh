@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Slider } from 'antd';
+import { use } from "react";
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -34,6 +35,15 @@ const Pmenu = ({videoSrc, name, setItemDuration, setItemData}) => {
     setDulationRangeValue(newValues);
     setItemDuration(newValues);
   }
+
+  useEffect(() => {
+    setItemData({
+      src: videoSrc,
+      name: name,
+      flameTime: flameRangeValue
+    });
+    setItemDuration(dulationRangeValue);
+  }, []);
   
   return (
     <>
