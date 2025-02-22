@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import VideoFilmStrip from "./VideoFilmStlip";
 import DeleteMenu from "./DeleteMenu";
 
-export const CopyRender = ({ action }) => {
+export const CopyRender = ({ action, color="#5297ff" }) => {
   const itemRef = useRef(null);
   const [frameCount, setFrameCount] = useState(5);
 
@@ -35,7 +35,7 @@ export const CopyRender = ({ action }) => {
           height: "100%",
           borderRadius: "8px",
           backgroundColor: "#191b1d",
-          border: "4px solid #5297ff",
+          border: `4px solid ${color}`,
           position: "relative",
           overflow: "hidden",
         }}
