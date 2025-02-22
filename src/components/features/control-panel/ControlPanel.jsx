@@ -3,6 +3,7 @@ import { Select, Tooltip } from "antd";
 import React, {useEffect, useState } from "react";
 import { useAtom } from 'jotai';
 import { timelineAtom, sortTimeline } from '@atoms/atom';
+import {scale, scaleWidth, startLeft} from '../timeline/DefaultData';
 
 const { Option } = Select;
 export const Rates = [0.2, 0.5, 1.0, 1.5, 2.0];
@@ -20,9 +21,11 @@ const ControlPanel= ({ timelineState}) => {
     engine.listener.on("afterSetTime", ({ time }) => setTime(time));
     engine.listener.on("setTimeByTick", ({ time }) => {
       setTime(time);
-
+      const autoScrollFrom = 1000;
+      const left = time * (scaleWidth / scale) + startLeft - autoScrollFrom;
+      timelineState.current.setScrollLeft(left)
     });
-
+    
     return () => {
       if (!engine) return;
       engine.pause();
@@ -57,6 +60,20 @@ const ControlPanel= ({ timelineState}) => {
   const handleSort = () => {
     setData(sortTimeline(data));
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Space") {
+        event.preventDefault(); // スクロール防止
+        handlePlayOrPause();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePlayOrPause]);
 
   return (
     <div className="timeline-player">
