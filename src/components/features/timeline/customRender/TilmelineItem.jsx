@@ -1,19 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 import VideoFilmStrip from "./VideoFilmStlip";
+import ImageStrip from "./ImageStrip";
 import DeleteMenu from "./DeleteMenu";
 
 export const CopyRender = ({ action }) => (
-  <CustomRender action={action} color="#2470a0" />
+  <CustomRender action={action} type="copy" color="#2470a0" />
 )
 
 export const ISubRender = ({ action }) => (
-  <CustomRender action={action} color="#a696c8" />
+  <CustomRender action={action} type="I-substitute" color="#a696c8" />
 )
 
 export const PDupRender = ({ action }) => (
-  <CustomRender action={action} color="#fad3cf" />
+  <CustomRender action={action} type="P-duplicate" color="#fad3cf" />
 )
-const CustomRender = ({ action, color}) => {
+const CustomRender = ({ action, type, color }) => {
   const itemRef = useRef(null);
   const [frameCount, setFrameCount] = useState(5);
 
@@ -72,11 +73,18 @@ const CustomRender = ({ action, color}) => {
             }}
           />
         </div>
-        <VideoFilmStrip action={action} frameCount={frameCount}
+        {type === "P-duplicate"
+          ?<ImageStrip action={action} frameCount={frameCount}
           style={{
             position: "absolute",
           }}
-        />
+          />
+          :<VideoFilmStrip action={action} frameCount={frameCount}
+            style={{
+              position: "absolute",
+            }}
+          />
+        }
         <div
           style={{
             position: "absolute",
