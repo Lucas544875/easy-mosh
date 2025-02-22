@@ -5,6 +5,7 @@ import "./modal.less";
 import { useAtom } from 'jotai';
 import { timelineAtom } from '@atoms/atom';
 import CImenu from './CImenu';
+import Pmenu from './Pmenu';
 
 const options = [
   { label: 'copy', value: 'copy' },
@@ -77,6 +78,12 @@ const SrcCardModal = ({ videoSrc, name }) => {
             onChange={(e) => setRadioValue(e.target.value)}
           />
           {!isPduplicate && <CImenu
+            videoSrc={videoSrc}
+            name={name}
+            setItemData={setItemData}
+            setItemDuration={setItemDuration}
+          />}
+          {isPduplicate && <Pmenu
             videoSrc={videoSrc}
             name={name}
             setItemData={setItemData}
