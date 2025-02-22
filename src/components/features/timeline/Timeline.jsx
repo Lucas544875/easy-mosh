@@ -2,7 +2,7 @@ import { Timeline } from '@xzdarcy/react-timeline-editor';
 import React, { useRef } from 'react';
 import { useAtom } from 'jotai';
 import { timelineAtom, normalizeTimeline } from '@atoms/atom';
-import { CopyRender } from './customRender/TilmelineItem';
+import { CopyRender, ISubRender, PDupRender } from './customRender/TilmelineItem';
 import { effectList, scale, scaleWidth, startLeft } from './DefaultData';
 import ControlPanel from '@features/control-panel/ControlPanel';
 import RenderButton from '@features/render-button/RenderButton';
@@ -39,6 +39,10 @@ const TimelineEditor = () => {
           getActionRender={(action, row) => {
             if (action.effectId === 'copy') {
               return <CopyRender action={action} row={row} />;
+            }else if (action.effectId === 'I-substitute') {
+              return <ISubRender action={action} row={row} />;
+            }else if (action.effectId === 'P-duplicate') {
+              return <PDupRender action={action} row={row} />;
             }
           }}
         />

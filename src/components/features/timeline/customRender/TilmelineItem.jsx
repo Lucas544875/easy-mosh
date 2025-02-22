@@ -2,7 +2,18 @@ import React, { useRef, useEffect, useState } from "react";
 import VideoFilmStrip from "./VideoFilmStlip";
 import DeleteMenu from "./DeleteMenu";
 
-export const CopyRender = ({ action, color="#5297ff" }) => {
+export const CopyRender = ({ action }) => (
+  <CustomRender action={action} color="#5297ff" />
+)
+
+export const ISubRender = ({ action }) => (
+  <CustomRender action={action} color="#ff7e67" />
+)
+
+export const PDupRender = ({ action }) => (
+  <CustomRender action={action} color="#ffcc00" />
+)
+const CustomRender = ({ action, color}) => {
   const itemRef = useRef(null);
   const [frameCount, setFrameCount] = useState(5);
 
@@ -46,7 +57,7 @@ export const CopyRender = ({ action, color="#5297ff" }) => {
             height: "100%",
             width: "10px",
             left: "0%",
-            backgroundColor: "#5297ff",
+            backgroundColor: color,
           }}
         >
           <div
@@ -73,7 +84,7 @@ export const CopyRender = ({ action, color="#5297ff" }) => {
             width: "10px",
             right: "0%",
             top: "0%",
-            backgroundColor: "#5297ff",
+            backgroundColor: color,
           }}
         >
           <div
