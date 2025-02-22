@@ -58,6 +58,20 @@ const ControlPanel= ({ timelineState}) => {
     setData(sortTimeline(data));
   }
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === "Space") {
+        event.preventDefault(); // スクロール防止
+        handlePlayOrPause();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePlayOrPause]);
+
   return (
     <div className="timeline-player">
       <div className="play-control" onClick={handlePlayOrPause}>
