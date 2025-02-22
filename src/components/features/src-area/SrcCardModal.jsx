@@ -1,15 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { Modal, Slider, Radio } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Radio } from 'antd';
 import MyButton from "@common/button";
 import "./modal.less";
 import { useAtom } from 'jotai';
 import { timelineAtom } from '@atoms/atom';
-
-const formatTime = (seconds) => {
-  const minutes = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${minutes}:${secs.toString().padStart(2, '0')}`;
-};
+import CImenu from './CImenu';
+import Pmenu from './Pmenu';
 
 const options = [
   { label: 'copy', value: 'copy' },
@@ -30,27 +26,23 @@ const maxTime = (timeline) => {
 
 const SrcCardModal = ({ videoSrc, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rangeValues, setRangeValues] = useState([0, 0]);
-  const [duration, setDuration] = useState(100);
   const [radioValue, setRadioValue] = useState('copy');
-  const startPreviewVideoRef = useRef(null);
-  const endPreviewVideoRef = useRef(null);
+  const isPduplicate = radioValue === 'P-duplicate';
+  const [itemData, setItemData] = useState({});
+  const [itemDuration, setItemDuration] = useState(5);
   const [timelineData, setTimelineData] = useAtom(timelineAtom);
 
   const showModal = () => setIsModalOpen(true);
+
   const handleOk = () => {
+    // タイムラインへのアイテムの追加処理
     const newTimelineItem = {
       id: Date.now(),
       start: maxTime(timelineData),
-      end: maxTime(timelineData) + rangeValues[1] - rangeValues[0],
-      effectId: radioValue, // 動画
+      end: maxTime(timelineData) + itemDuration,
+      effectId: radioValue,
       flexible: false,
-      data: {
-        src: videoSrc,
-        name: name,
-        cripStart: rangeValues[0],
-        cripEnd: rangeValues[1],
-      },
+      data: itemData,
     }
     // console.log(newTimelineItem);
     const newTimelineData = [{
@@ -60,23 +52,8 @@ const SrcCardModal = ({ videoSrc, name }) => {
     setTimelineData(newTimelineData);
     setIsModalOpen(false);
   };
+
   const handleCancel = () => setIsModalOpen(false);
-
-  const handleLoadedMetadata = (e) => {
-    const videoDuration = e.target.duration;
-    setDuration(videoDuration);
-    setRangeValues([0, videoDuration]);
-  };
-
-  const handleSliderChange = (newValues) => {
-    setRangeValues(newValues);
-    if (startPreviewVideoRef.current) {
-      startPreviewVideoRef.current.currentTime = newValues[0];
-    }
-    if (endPreviewVideoRef.current) {
-      endPreviewVideoRef.current.currentTime = newValues[1];
-    }
-  };
 
   return (
     <>
@@ -100,44 +77,18 @@ const SrcCardModal = ({ videoSrc, name }) => {
             buttonStyle="solid"
             onChange={(e) => setRadioValue(e.target.value)}
           />
-          {/* プレビューエリア */}
-          <div className="flex justify-between">
-            <video 
-              ref={startPreviewVideoRef}
-              src={videoSrc}
-              width="45%" 
-              preload="metadata" 
-              className='bg-black'
-              onLoadedMetadata={handleLoadedMetadata}
-            />
-            <video 
-              ref={endPreviewVideoRef}
-              src={videoSrc}
-              width="45%" 
-              preload="metadata" 
-              className='bg-black'
-            />
-          </div>
-          {/* スライダー */}
-          <div className="w-full px-4">
-            <Slider
-              range
-              min={0}
-              max={duration}
-              step={0.1}
-              value={rangeValues}
-              onChange={handleSliderChange}
-              tipFormatter={(value) => formatTime(value)}
-            />
-          </div>
-          <div>
-            <div className="mt-2 inline">
-              {formatTime(rangeValues[0])}~{formatTime(rangeValues[1])}
-            </div>
-            <div className="inline" style={{ color: '#bbb' }}>
-              /{formatTime(duration)}
-            </div>
-          </div>
+          {!isPduplicate && <CImenu
+            videoSrc={videoSrc}
+            name={name}
+            setItemData={setItemData}
+            setItemDuration={setItemDuration}
+          />}
+          {isPduplicate && <Pmenu
+            videoSrc={videoSrc}
+            name={name}
+            setItemData={setItemData}
+            setItemDuration={setItemDuration}
+          />}
         </div>
       </Modal>
     </>
