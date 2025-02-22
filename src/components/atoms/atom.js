@@ -31,6 +31,31 @@ const defaultData = [
           cripEnd: 5
         },
       },
+      {
+        id: Date.now()-3000,
+        start: 15,
+        end: 20,
+        flexible: false,
+        effectId: "P-duplicate",
+        data: {
+          src: '/src/assets/mov.mp4',
+          name: '例3',
+          flameTime: 0
+        }
+      },
+      {
+        id: Date.now()-4000,
+        start: 20,
+        end: 25,
+        flexible: false,
+        effectId: "I-substitute",
+        data: {
+          src: '/src/assets/mov.mp4',
+          name: '例4',
+          cripStart: 0,
+          cripEnd: 5
+        },
+      },
     ],
   },
 ];
