@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Modal, Slider, Radio } from 'antd';
-import { useAtom } from 'jotai';
-import { timelineAtom } from '@atoms/atom';
+import { Slider } from 'antd';
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -9,12 +7,11 @@ const formatTime = (seconds) => {
   return `${minutes}:${secs.toString().padStart(2, '0')}`;
 };
 
-const CImenu = ({videoSrc, name}) => {
+const CImenu = ({videoSrc, name, setItemDuration, setItemData}) => {
   const [rangeValues, setRangeValues] = useState([0, 0]);
   const [duration, setDuration] = useState(100);
   const startPreviewVideoRef = useRef(null);
   const endPreviewVideoRef = useRef(null);
-  const [timelineData, setTimelineData] = useAtom(timelineAtom);
   
   const handleLoadedMetadata = (e) => {
     const videoDuration = e.target.duration;
@@ -24,6 +21,13 @@ const CImenu = ({videoSrc, name}) => {
 
   const handleSliderChange = (newValues) => {
     setRangeValues(newValues);
+    setItemDuration(newValues[1] - newValues[0]);
+    setItemData({
+      src: videoSrc,
+      name: name,
+      cripStart: newValues[0],
+      cripEnd: newValues[1],
+    });
     if (startPreviewVideoRef.current) {
       startPreviewVideoRef.current.currentTime = newValues[0];
     }
@@ -58,7 +62,7 @@ const CImenu = ({videoSrc, name}) => {
           range
           min={0}
           max={duration}
-          step={0.1}
+          step={0.03}
           value={rangeValues}
           onChange={handleSliderChange}
           tipFormatter={(value) => formatTime(value)}

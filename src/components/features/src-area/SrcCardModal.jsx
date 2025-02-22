@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Modal, Slider, Radio } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Radio } from 'antd';
 import MyButton from "@common/button";
 import "./modal.less";
 import { useAtom } from 'jotai';
@@ -12,45 +12,43 @@ const options = [
   { label: 'P-duplicate', value: 'P-duplicate' },
 ];
 
-// const maxTime = (timeline) => {
-//   const actions = timeline[0].actions;
-//   let max = 0;
-//   actions.forEach((action) => {
-//     if (action.end > max) {
-//       max = action.end;
-//     }
-//   });
-//   return max;
-// };
+const maxTime = (timeline) => {
+  const actions = timeline[0].actions;
+  let max = 0;
+  actions.forEach((action) => {
+    if (action.end > max) {
+      max = action.end;
+    }
+  });
+  return max;
+};
 
 const SrcCardModal = ({ videoSrc, name }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [radioValue, setRadioValue] = useState('copy');
   const isPduplicate = radioValue === 'P-duplicate';
+  const [itemData, setItemData] = useState({});
+  const [itemDuration, setItemDuration] = useState(5);
+  const [timelineData, setTimelineData] = useAtom(timelineAtom);
 
   const showModal = () => setIsModalOpen(true);
 
   const handleOk = () => {
     // タイムラインへのアイテムの追加処理
-    // const newTimelineItem = {
-    //   id: Date.now(),
-    //   start: maxTime(timelineData),
-    //   end: maxTime(timelineData) + rangeValues[1] - rangeValues[0],
-    //   effectId: radioValue, // 動画
-    //   flexible: false,
-    //   data: {
-    //     src: videoSrc,
-    //     name: name,
-    //     cripStart: rangeValues[0],
-    //     cripEnd: rangeValues[1],
-    //   },
-    // }
-    // // console.log(newTimelineItem);
-    // const newTimelineData = [{
-    //   id: '1',
-    //   actions: timelineData[0].actions.concat(newTimelineItem)
-    // }]
-    // setTimelineData(newTimelineData);
+    const newTimelineItem = {
+      id: Date.now(),
+      start: maxTime(timelineData),
+      end: maxTime(timelineData) + itemDuration,
+      effectId: radioValue,
+      flexible: false,
+      data: itemData,
+    }
+    // console.log(newTimelineItem);
+    const newTimelineData = [{
+      id: '1',
+      actions: timelineData[0].actions.concat(newTimelineItem)
+    }]
+    setTimelineData(newTimelineData);
     setIsModalOpen(false);
   };
 
@@ -78,7 +76,12 @@ const SrcCardModal = ({ videoSrc, name }) => {
             buttonStyle="solid"
             onChange={(e) => setRadioValue(e.target.value)}
           />
-          {!isPduplicate && <CImenu videoSrc={videoSrc} name={name}/>}
+          {!isPduplicate && <CImenu
+            videoSrc={videoSrc}
+            name={name}
+            setItemData={setItemData}
+            setItemDuration={setItemDuration}
+          />}
         </div>
       </Modal>
     </>
