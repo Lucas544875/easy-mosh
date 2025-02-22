@@ -3,15 +3,15 @@ import VideoFilmStrip from "./VideoFilmStlip";
 import DeleteMenu from "./DeleteMenu";
 
 export const CopyRender = ({ action }) => (
-  <CustomRender action={action} color="#5297ff" />
+  <CustomRender action={action} color="#2470a0" />
 )
 
 export const ISubRender = ({ action }) => (
-  <CustomRender action={action} color="#ff7e67" />
+  <CustomRender action={action} color="#a696c8" />
 )
 
 export const PDupRender = ({ action }) => (
-  <CustomRender action={action} color="#ffcc00" />
+  <CustomRender action={action} color="#fad3cf" />
 )
 const CustomRender = ({ action, color}) => {
   const itemRef = useRef(null);
@@ -68,7 +68,7 @@ const CustomRender = ({ action, color}) => {
               height: "50%",
               width: "5px",
               left: "0%",
-              backgroundColor: "black",
+              backgroundColor: "#191b1d",
             }}
           />
         </div>
@@ -95,7 +95,7 @@ const CustomRender = ({ action, color}) => {
               height: "50%",
               width: "5px",
               right: "0%",
-              backgroundColor: "black",
+              backgroundColor: "#191b1d",
             }}
           />
         </div>
