@@ -4,7 +4,8 @@ import { Slider } from 'antd';
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
-  return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  const msecs = Math.floor((seconds - Math.floor(seconds)) * 100);
+  return `${minutes}:${secs.toString().padStart(2, '0')}.${msecs.toString().padStart(2, '0')}`;
 };
 
 const CImenu = ({videoSrc, name, setItemDuration, setItemData}) => {
@@ -17,6 +18,9 @@ const CImenu = ({videoSrc, name, setItemDuration, setItemData}) => {
     const videoDuration = e.target.duration;
     setDuration(videoDuration);
     setRangeValues([0, videoDuration]);
+    if (endPreviewVideoRef.current) {
+      endPreviewVideoRef.current.currentTime = videoDuration;
+    }
   };
 
   const handleSliderChange = (newValues) => {
@@ -62,7 +66,7 @@ const CImenu = ({videoSrc, name, setItemDuration, setItemData}) => {
           range
           min={0}
           max={duration}
-          step={0.03}
+          step={0.01}
           value={rangeValues}
           onChange={handleSliderChange}
           tipFormatter={(value) => formatTime(value)}
