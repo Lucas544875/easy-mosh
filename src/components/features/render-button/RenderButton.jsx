@@ -20,8 +20,10 @@ const RenderButton = () => {
   
   const handleRender = () => {
     setIsModalOpen(true);
-    const actions = data[0].actions;
-    setData(sortTimeline(data));
+    const newData = sortTimeline(data);
+    setData(newData);
+    const actions = newData[0].actions;
+    console.log(actions);
     mergeVideos(actions);
   }
 
