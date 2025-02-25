@@ -39,6 +39,70 @@ export function useFfmpeg({videoRef, messageRef}) {
       URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
   }
 
+  const mp4Toh264 = async ( src ) => {
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    const id = Date.now();
+    await ffmpeg.writeFile(`f_${id}.mp4`, await fetchFile(src));
+    await ffmpeg.exec(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', `f_${id}.h264`]);
+    console.log(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', `f_${id}.h264`])
+    const data = await ffmpeg.readFile(`f_${id}.h264`);
+    return URL.createObjectURL(new Blob([data.buffer], {type: 'video/h264'}));
+  }
+
+  const mp4Toh264OnlyP = async ( src ) => {
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    const id = Date.now();
+    await ffmpeg.writeFile(`f_${id}.mp4`, await fetchFile(src));
+    await ffmpeg.exec(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', '-vf', 'select=eq(pict_type\\,I)', `f_${id}.h264`]);
+    const data = await ffmpeg.readFile(`f_${id}.h264`);
+    return URL.createObjectURL(new Blob([data.buffer], {type: 'video/h264'}));
+  }
+
+  const h264ToMp4 = async ( src ) => {
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    const id = Date.now();
+    await ffmpeg.writeFile(`f_${id}.h264`, await fetchFile(src));
+    await ffmpeg.exec(['-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`]);
+    console.log(['-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`])
+    const data = await ffmpeg.readFile(`f_${id}.mp4`);
+    return URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
+  }
+
+  const conactH264 = async ( src1, src2 ) => {
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    const id = Date.now();
+    await ffmpeg.writeFile(`f_${id}_1.h264`, await fetchFile(src1));
+    await ffmpeg.writeFile(`f_${id}_2.h264`, await fetchFile(src2));
+    await ffmpeg.exec(['-i', `concat:f_${id}_1.h264|f_${id}_2.h264`, '-c', 'copy', 'f_output.h264']);
+    console.log(['-i', `f_${id}_1.h264`, '-i', `f_${id}_2.h264`, '-c', 'copy', 'f_output.h264'])
+    const data = await ffmpeg.readFile('f_output.h264');
+    return URL.createObjectURL(new Blob([data.buffer], {type: 'video/h264'}));
+  }
+
+  async function testProcess(actions) {
+    setIsProcessing(true);
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    
+    const mov1Src = "/src/assets/mov.mp4"
+    const mov2Src = "/src/assets/mov2.mp4"
+    mp4Toh264(mov1Src).then((h2641) => {
+      mp4Toh264(mov2Src).then((h2642) => {
+        conactH264(h2641, h2642).then((h264) => {
+          h264ToMp4(h264).then((mp4) => {
+            videoRef.current.src = mp4;
+          })
+        })
+      })
+    });
+
+    setIsProcessing(false);
+  }
+
   async function mergeVideos(actions) {
     setIsProcessing(true);
     await load();
@@ -90,5 +154,5 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   // return { mergeVideos, outputUrl, isProcessing, isLoaded };
-  return { mergeVideos, isProcessing};
+  return { mergeVideos, isProcessing, testProcess};
 }
