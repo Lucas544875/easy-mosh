@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
-import removeFirstIFrame from './useBinaryEdit';
+import { removeFirstIFrame, concatBuffers } from './binaryEdit';
 
 export function useFfmpeg({videoRef, messageRef}) {
   const [loaded, setLoaded] = useState(false);
@@ -68,7 +68,7 @@ export function useFfmpeg({videoRef, messageRef}) {
     await ffmpeg.writeFile(`f_${id}.h264`, data);
     await ffmpeg.exec(['-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`]);
     console.log(['-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`])
-    const nweData = await ffmpeg.readFile(`f_${id}.mp4`);
+    const newData = await ffmpeg.readFile(`f_${id}.mp4`);
     return newData;
   }
 
@@ -95,8 +95,14 @@ export function useFfmpeg({videoRef, messageRef}) {
 
     const mov1h264 = await mp4Toh264(mov1Data);
     const mov2h264 = await mp4Toh264(mov2Data);
-    const conh264 = await conactH264(mov1h264, mov2h264);
-    const mp4 = await h264ToMp4(conh264);
+    const mov2h264Url = URL.createObjectURL(new Blob([mov2h264.buffer], {type: 'video/h264'}));
+    console.log("done:", mov2h264Url);
+    const editedURL = await removeFirstIFrame(mov2h264Url);
+    console.log("done:", editedURL);
+    const mov2brokenh264 = await fetchFile(editedURL);
+    const concath264 = concatBuffers([mov1h264, mov2brokenh264]);
+
+    const mp4 = await h264ToMp4(concath264);
     const mp4Url = URL.createObjectURL(new Blob([mp4.buffer], {type: 'video/mp4'}));
     videoRef.current.src = mp4Url;
 
