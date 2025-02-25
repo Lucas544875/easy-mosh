@@ -1,14 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
-import { list } from 'postcss';
 
 export function useFfmpeg({videoRef, messageRef}) {
   const [loaded, setLoaded] = useState(false);
   const ffmpegRef = useRef(new FFmpeg());
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // FFmpeg.wasm のロード
   const load = async () => {
+    if (loaded){
+      return;
+    }
     try {
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm'
       const ffmpeg = ffmpegRef.current;
@@ -38,10 +41,7 @@ export function useFfmpeg({videoRef, messageRef}) {
 
   async function mergeVideos(actions) {
     setIsProcessing(true);
-    if (!loaded){
-      await load();
-      setLoaded(true);
-    }
+    await load();
     const ffmpeg = ffmpegRef.current;
 
     try {
