@@ -7,7 +7,7 @@ const { Header } = Layout;
 const AppHeader = () => (
   <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#27272a', padding: '0 20px' }}>
     <Link to="/" style={{ color: 'white', fontSize: '18px', fontWeight: 'bold' }}>
-      ロゴ
+      Easy Mosh
     </Link>
     <Menu mode="horizontal" theme="dark" style={{ background: 'transparent', borderBottom: 'none' }}>
       <Menu.Item key="edit">
