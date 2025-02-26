@@ -12,7 +12,7 @@ const RenderButton = () => {
   const [data, setData] = useAtom(timelineAtom);
   const videoRef = React.useRef(null);
   const messageRef = React.useRef(null);
-  const { mergeVideos, isProcessing } 
+  const { isProcessing, rendoringTimeline, abortRendering } 
     = useFfmpeg({
       videoRef:videoRef,
       messageRef:messageRef
@@ -20,9 +20,12 @@ const RenderButton = () => {
   
   const handleRender = () => {
     setIsModalOpen(true);
-    const actions = data[0].actions;
-    setData(sortTimeline(data));
-    mergeVideos(actions);
+    const newData = sortTimeline(data);
+    setData(newData);
+    const actions = newData[0].actions;
+    // console.log(actions);
+    // mergeVideos(actions);
+    rendoringTimeline(actions);
   }
 
   const handleOk = () => {
@@ -35,6 +38,7 @@ const RenderButton = () => {
   const handleClose = () => {
     setIsModalOpen(false);
     videoRef.current.src = '';
+    abortRendering();
   }
 
   return(   
