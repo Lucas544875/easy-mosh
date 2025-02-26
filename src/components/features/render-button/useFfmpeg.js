@@ -43,7 +43,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   const mp4Toh264 = async ( data, ss, to ) => {
     await load();
     const ffmpeg = ffmpegRef.current;
-    const id = Date.now();
+    const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
     await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
 
@@ -55,7 +55,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   const mp4Toh264OnlyP = async ( src ) => {
     await load();
     const ffmpeg = ffmpegRef.current;
-    const id = Date.now();
+    const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, await fetchFile(src));
     await ffmpeg.exec(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', '-vf', 'select=eq(pict_type\\,I)', `f_${id}.h264`]);
     const data = await ffmpeg.readFile(`f_${id}.h264`);
@@ -65,7 +65,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   const h264ToMp4 = async ( data ) => {
     await load();
     const ffmpeg = ffmpegRef.current;
-    const id = Date.now();
+    const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.h264`, data);
     await ffmpeg.exec(['-f','h264','-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`]);
     // console.log(['-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`])
@@ -76,7 +76,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   const conactH264 = async ( data1, data2 ) => {
     await load();
     const ffmpeg = ffmpegRef.current;
-    const id = Date.now();
+    const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}_1.h264`, data1);
     await ffmpeg.writeFile(`f_${id}_2.h264`, data2);
     await ffmpeg.exec(['-i', `concat:f_${id}_1.h264|f_${id}_2.h264`, '-c', 'copy', 'f_output.h264']);
@@ -109,6 +109,46 @@ export function useFfmpeg({videoRef, messageRef}) {
 
     setIsProcessing(false);
   }
+
+  async function rendoringTimeline(actions) {
+    setIsProcessing(true);
+    await load();
+
+    try {
+      const h264s = await Promise.all(
+        actions.map( async (action) => {
+          const src = action.data.src
+          const effectId = action.effectId;
+          if (effectId === "copy") {
+            const start = action.data.cripStart;
+            const end = action.data.cripEnd;
+            const h264 = await mp4Toh264(await fetchFile(src), start, end);
+            return h264;
+          } else if (effectId === "I-substitute") {
+            const start = action.data.cripStart;
+            const end = action.data.cripEnd;
+            const h264 = await mp4Toh264(await fetchFile(src), start, end);
+            const h264blob = new Blob([h264.buffer], {type: 'video/h264'});
+            const blokenh264 = await removeFirstIFrame(h264blob);
+            return blokenh264;
+          } else if (effectId === "P-duplicate") {
+            const flameTime = action.data.flameTime;
+            return;
+          }
+        })
+      );
+
+      const mergedH264Streams = concatBuffers(h264s);
+      const mp4 = await h264ToMp4(mergedH264Streams);
+      const mp4Url = URL.createObjectURL(new Blob([mp4.buffer], {type: 'video/mp4'}));
+      videoRef.current.src = mp4Url;
+    } catch (error) {
+      console.error('動画の連結に失敗しました:', error);
+    } finally {
+      setIsProcessing(false);
+    };
+  }
+
 
   async function mergeVideos(actions) {
     setIsProcessing(true);
@@ -161,5 +201,5 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   // return { mergeVideos, outputUrl, isProcessing, isLoaded };
-  return { mergeVideos, isProcessing, testProcess};
+  return { mergeVideos, isProcessing, testProcess, rendoringTimeline};
 }
