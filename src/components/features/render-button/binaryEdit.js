@@ -2,19 +2,12 @@ import { Buffer } from 'buffer';
 
 async function removeFirstIFrame(object) {
   try {
-    // objectURL から H.264 データを取得
-    // const response = await fetch(objectURL);
     const arrayBuffer = await object.arrayBuffer();
     // ArrayBuffer を Buffer に変換
     const buffer = Buffer.from(arrayBuffer);
 
     // 先頭の I フレームを削除
-    const editedBuffer = _removeFirstIFrame(buffer);
-
-    // 編集後の Buffer から Blob を生成し、新たな objectURL を作成
-    // const blob = new Blob([editedBuffer], { type: 'video/h264' });
-    // const newObjectURL = URL.createObjectURL(blob);
-    return editedBuffer;
+    return _removeFirstIFrame(buffer);
   } catch (err) {
     console.error(err);
   }
@@ -104,4 +97,19 @@ function concatBuffers(buffers) {
   return Buffer.concat(buffers);
 }
 
-export { removeFirstIFrame, concatBuffers };
+function repeatH264Bitstream(buffer, repeatCount) {
+  // H.264 ビットストリームを指定回数繰り返す関数
+  // 繰り返し回数が 1 未満の場合は空の Buffer を返す
+  if (repeatCount < 1) {
+    return Buffer.alloc(0);
+  }
+
+  const buffers = [];
+  for (let i = 0; i < repeatCount; i++) {
+    buffers.push(buffer);
+  }
+  return concatBuffers(buffers);
+}
+
+
+export { removeFirstIFrame, concatBuffers, repeatH264Bitstream };

@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
-import { removeFirstIFrame, concatBuffers } from './binaryEdit';
+import { removeFirstIFrame, concatBuffers, repeatH264Bitstream } from './binaryEdit';
+import { ceil } from 'lodash';
 
 export function useFfmpeg({videoRef, messageRef}) {
   const [loaded, setLoaded] = useState(false);
@@ -48,6 +49,16 @@ export function useFfmpeg({videoRef, messageRef}) {
     await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
 
     // console.log(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', `f_${id}.h264`])
+    const datah264 = await ffmpeg.readFile(`f_${id}.h264`);
+    return datah264;
+  }
+
+  const mp4Toh264Only2F = async ( data, ss ) => {
+    await load();
+    const ffmpeg = ffmpegRef.current;
+    const id = self.crypto.randomUUID();
+    await ffmpeg.writeFile(`f_${id}.mp4`, data);
+    await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-frames:v", "2" , "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
     const datah264 = await ffmpeg.readFile(`f_${id}.h264`);
     return datah264;
   }
@@ -133,7 +144,12 @@ export function useFfmpeg({videoRef, messageRef}) {
             return blokenh264;
           } else if (effectId === "P-duplicate") {
             const flameTime = action.data.flameTime;
-            return;
+            const h264 = await mp4Toh264Only2F(await fetchFile(src), flameTime);
+            const h264blob = new Blob([h264.buffer], {type: 'video/h264'});
+            const blokenh264 = await removeFirstIFrame(h264blob);
+            const flames = ceil((action.end - action.start)*30);
+            const repeatedh264 = repeatH264Bitstream(blokenh264, flames);
+            return repeatedh264;
           }
         })
       );
