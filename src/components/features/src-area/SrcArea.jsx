@@ -2,23 +2,19 @@ import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import SrcCard from "@features/src-area/SrcCard";
 import { useAtom } from "jotai";
-import { srcListAtom } from "@atoms/srcListAtom";
+import { srcListAtom, addSrcItems, deleteItem } from "@atoms/srcListAtom";
 
 const SrcAreaa = () => {
   const [videos, setVideos] = useAtom(srcListAtom);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
-    const newVideos = files.map((file) => ({
-      id: Date.now(),
-      url: URL.createObjectURL(file),
-      name: file.name,
-    }));
-    setVideos((prev) => [...prev, ...newVideos]);
+    const newList = addSrcItems(videos, files);
+    setVideos(newList);
   };
 
   const deleteVideo = (id) => {
-    setVideos((prev) => prev.filter(item => item.id !== id));
+    setVideos(deleteItem(videos, id));
   };
 
   return (
