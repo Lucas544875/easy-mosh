@@ -67,6 +67,7 @@ export function useFfmpeg({videoRef, messageRef}) {
 
   async function rendoringTimeline(actions) {
     setIsProcessing(true);
+    messageRef.current.innerHTML = 'レンダリングを開始します...';
     await load();
 
     try {
@@ -110,6 +111,15 @@ export function useFfmpeg({videoRef, messageRef}) {
     };
   }
 
+  // レンダリング中断用の関数（ffmpeg.terminateを利用）
+  const abortRendering = () => {
+    const ffmpeg = ffmpegRef.current;
+    if (ffmpeg) {
+      ffmpeg.terminate();
+      setLoaded(false);
+    }
+  };
+
   // return { mergeVideos, outputUrl, isProcessing, isLoaded };
-  return { isProcessing, rendoringTimeline };
+  return { isProcessing, rendoringTimeline, abortRendering };
 }

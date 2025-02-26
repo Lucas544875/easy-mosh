@@ -12,7 +12,7 @@ const RenderButton = () => {
   const [data, setData] = useAtom(timelineAtom);
   const videoRef = React.useRef(null);
   const messageRef = React.useRef(null);
-  const { isProcessing, rendoringTimeline } 
+  const { isProcessing, rendoringTimeline, abortRendering } 
     = useFfmpeg({
       videoRef:videoRef,
       messageRef:messageRef
@@ -38,6 +38,7 @@ const RenderButton = () => {
   const handleClose = () => {
     setIsModalOpen(false);
     videoRef.current.src = '';
+    abortRendering();
   }
 
   return(   
