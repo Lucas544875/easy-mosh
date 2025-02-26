@@ -14,11 +14,12 @@ const TimelineEditor = () => {
   // const [data, setData] = useState(defaultEditorData);
   const [data, setData] = useAtom(timelineAtom);
   const timelineState = useRef();
-
+  const playerPannel = useRef();
   return (
     <>
       <div className="h-1/2 p-4 flex justify-center items-center relative">
-        <video id="video-1" className="video bg-black" style={{height:"40vh"}}/>
+        <div className="bg-black player-panel" id="player-ground-1" ref={playerPannel} style={{height:"40vh", width:"calc(40vh*16/9)"}}>
+        </div>
         <RenderButton/>
       </div>
       <div className="h-1/2">
