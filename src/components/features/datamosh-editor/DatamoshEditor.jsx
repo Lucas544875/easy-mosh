@@ -10,7 +10,7 @@ const DatamoshEditor = () => {
   return (
     <div className="flex-1 text-white bg-zinc-950">
       <div className="grid grid-cols-3 h-full">
-        <div className="col-span-1 border-r p-4">
+        <div className="col-span-1 border-r-6 border-zinc-700 p-4">
           {/* Source Area */}
           <SrcArea />
         </div>
