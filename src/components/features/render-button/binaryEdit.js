@@ -1,10 +1,10 @@
 import { Buffer } from 'buffer';
 
-async function removeFirstIFrame(objectURL) {
+async function removeFirstIFrame(object) {
   try {
     // objectURL から H.264 データを取得
-    const response = await fetch(objectURL);
-    const arrayBuffer = await response.arrayBuffer();
+    // const response = await fetch(objectURL);
+    const arrayBuffer = await object.arrayBuffer();
     // ArrayBuffer を Buffer に変換
     const buffer = Buffer.from(arrayBuffer);
 
@@ -12,9 +12,9 @@ async function removeFirstIFrame(objectURL) {
     const editedBuffer = _removeFirstIFrame(buffer);
 
     // 編集後の Buffer から Blob を生成し、新たな objectURL を作成
-    const blob = new Blob([editedBuffer], { type: 'video/h264' });
-    const newObjectURL = URL.createObjectURL(blob);
-    return newObjectURL;
+    // const blob = new Blob([editedBuffer], { type: 'video/h264' });
+    // const newObjectURL = URL.createObjectURL(blob);
+    return editedBuffer;
   } catch (err) {
     console.error(err);
   }

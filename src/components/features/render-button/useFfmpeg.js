@@ -47,7 +47,7 @@ export function useFfmpeg({videoRef, messageRef}) {
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
     await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
 
-    console.log(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', `f_${id}.h264`])
+    // console.log(['-i', `f_${id}.mp4`, '-c', 'copy', '-bsf:v', 'h264_mp4toannexb', `f_${id}.h264`])
     const datah264 = await ffmpeg.readFile(`f_${id}.h264`);
     return datah264;
   }
@@ -94,13 +94,13 @@ export function useFfmpeg({videoRef, messageRef}) {
     const mov1Data = await fetchFile(mov1Src);
     const mov2Data = await fetchFile(mov2Src);
 
-    const mov1h264 = await mp4Toh264(mov1Data, 0, 5);
-    const mov2h264 = await mp4Toh264(mov2Data, 0, 5);
-    const mov2h264Url = URL.createObjectURL(new Blob([mov2h264.buffer], {type: 'video/h264'}));
+    const mov1h264 = await mp4Toh264(mov1Data, 0, 3);
+    const mov2h264 = await mp4Toh264(mov2Data, 0, 3);
+    const mov2h264blob = new Blob([mov2h264.buffer], {type: 'video/h264'});
     // console.log("done:", mov2h264Url);
-    const editedURL = await removeFirstIFrame(mov2h264Url);
+    const mov2brokenh264 = await removeFirstIFrame(mov2h264blob);
     // console.log("done:", editedURL);
-    const mov2brokenh264 = await fetchFile(editedURL);
+    // const mov2brokenh264 = await fetchFile(editedURL);
     const concath264 = concatBuffers([mov1h264, mov2brokenh264]);
 
     const mp4 = await h264ToMp4(concath264);
