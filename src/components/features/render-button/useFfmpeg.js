@@ -103,7 +103,8 @@ export function useFfmpeg({videoRef, messageRef}) {
       const mp4Url = URL.createObjectURL(new Blob([mp4.buffer], {type: 'video/mp4'}));
       videoRef.current.src = mp4Url;
     } catch (error) {
-      console.error('動画の連結に失敗しました:', error);
+      console.error('エラーが発生しました。:', error);
+      messageRef.current.innerHTML = 'エラーが発生しました。';
     } finally {
       setIsProcessing(false);
     };
