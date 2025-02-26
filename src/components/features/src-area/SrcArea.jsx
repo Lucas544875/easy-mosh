@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import SrcCard from "@features/src-area/SrcCard";
+import { useAtom } from "jotai";
+import { srcListAtom } from "@atoms/srcListAtom";
 
 const SrcAreaa = () => {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useAtom(srcListAtom);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
