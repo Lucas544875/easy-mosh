@@ -16,16 +16,19 @@ export const effectList = {
         videoControl.enter({src, startTime: action.start, time, engine,isPlaying, cripStart });
       },
       update: ({ action, time }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.update({startTime: action.start, time, cripStart });
+        videoControl.update({src, startTime: action.start, time, cripStart });
       },
       leave: ({ action, time, isPlaying }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.leave({startTime: action.start + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart });
+        videoControl.leave({src, startTime: action.start + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart });
       },
       stop: ({ action, time, isPlaying }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.stop({startTime: action.start, time, isPlaying, cripStart });
+        videoControl.stop({src, startTime: action.start, time, isPlaying, cripStart });
       },
       start: ({ action, engine, time, isPlaying }) => {
         const src = (action).data.src;
@@ -44,16 +47,19 @@ export const effectList = {
         videoControl.enter({src, startTime: action.start, time, engine,isPlaying, cripStart });
       },
       update: ({ action, time }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.update({startTime: action.start, time, cripStart });
+        videoControl.update({src, startTime: action.start, time, cripStart });
       },
       leave: ({ action, time, isPlaying }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.leave({startTime: action.start + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart });
+        videoControl.leave({src, startTime: action.start + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart });
       },
       stop: ({ action, time, isPlaying }) => {
+        const src = (action).data.src;
         const cripStart = action.data.cripStart;
-        videoControl.stop({startTime: action.start, time, isPlaying, cripStart });
+        videoControl.stop({src, startTime: action.start, time, isPlaying, cripStart });
       },
       start: ({ action, engine, time, isPlaying }) => {
         const src = (action).data.src;
@@ -74,18 +80,21 @@ export const effectList = {
       },
       update: ({ action, time }) => {
         // const cripStart = action.data.cripStart;
+        const src = (action).data.src;
         const flameTime = (action).data.flameTime;
-        videoControl.update({startTime: time, time, cripStart:flameTime });
+        videoControl.update({src, startTime: time, time, cripStart:flameTime });
       },
       leave: ({ action, time, isPlaying }) => {
         // const cripStart = action.data.cripStart;
+        const src = (action).data.src
         const flameTime = (action).data.flameTime;
-        videoControl.leave({startTime: time + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart:flameTime });
+        videoControl.leave({ src, startTime: time + action.data.cripStart, endTime: action.end, time, isPlaying, cripStart:flameTime });
       },
       stop: ({ action, time, isPlaying }) => {
         // const cripStart = action.data.cripStart;
+        const src = (action).data.src
         const flameTime = (action).data.flameTime;
-        videoControl.stop({startTime: time, time, isPlaying, cripStart:flameTime });
+        videoControl.stop({src, startTime: time, time, isPlaying, cripStart:flameTime });
       },
       start: ({ action, engine, time, isPlaying }) => {
         const src = (action).data.src;
