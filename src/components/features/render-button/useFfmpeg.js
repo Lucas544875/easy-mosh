@@ -33,7 +33,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   const mp4Toh264 = async ( data, ss, to ) => {
-    await load();
+    // await load();
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
@@ -45,7 +45,7 @@ export function useFfmpeg({videoRef, messageRef}) {
   }
 
   const mp4Toh264Only2F = async ( data, ss ) => {
-    await load();
+    // await load();
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
@@ -55,7 +55,7 @@ export function useFfmpeg({videoRef, messageRef}) {
     return datah264;
   }
   const h264ToMp4 = async ( data ) => {
-    await load();
+    // await load();
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.h264`, data);
