@@ -76,7 +76,7 @@ const RenderButton = () => {
           ref = {videoRef}
           controls
         />
-        <p className="m-2">
+        <p className="p-2" style={{margin: "0"}}>
           ログ出力
         </p>
         <div className="bg-zinc-700 p-2">
