@@ -12,7 +12,7 @@ const RenderButton = () => {
   const [data, setData] = useAtom(timelineAtom);
   const videoRef = React.useRef(null);
   const messageRef = React.useRef(null);
-  const { mergeVideos, isProcessing, rendoringTimeline, testProcess } 
+  const { isProcessing, rendoringTimeline } 
     = useFfmpeg({
       videoRef:videoRef,
       messageRef:messageRef
