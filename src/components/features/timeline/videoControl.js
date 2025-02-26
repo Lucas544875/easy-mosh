@@ -86,6 +86,13 @@ class VideoControl {
     }
   }
 
+  delete(src) {
+    const video = this.cacheMap[src];
+    if (!video) return;
+    video.remove();
+    delete this.cacheMap[src];
+  }
+
   destroy() {
     // キャッシュ内のすべての video 要素を削除
     Object.values(this.cacheMap).forEach(video => video.remove());
