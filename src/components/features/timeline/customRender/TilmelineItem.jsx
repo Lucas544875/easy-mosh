@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Tooltip } from "antd";
 import VideoFilmStrip from "./VideoFilmStlip";
 import ImageStrip from "./ImageStrip";
 import DeleteMenu from "./DeleteMenu";
@@ -40,6 +41,7 @@ const CustomRender = ({ action, type, color }) => {
     <DeleteMenu
       action = {action}
     >
+      <Tooltip title={action.effectId}>
       <div
         ref={itemRef}
         style={{
@@ -108,6 +110,7 @@ const CustomRender = ({ action, type, color }) => {
           />
         </div>
       </div>
+      </Tooltip>
     </DeleteMenu>
   );
 };
