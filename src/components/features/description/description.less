@@ -1,5 +1,106 @@
-.description{
+.description {
+  color: #ddd;
+  padding: 1rem;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  // 見出しのスタイル
+  h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
   h1 {
-    color: white;
+    font-size: 2.5rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.3rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.3rem;
+  }
+  
+  h3 {
+    font-size: 1.75rem;
+  }
+  
+  h4 {
+    font-size: 1.5rem;
+  }
+  
+  h5 {
+    font-size: 1.25rem;
+  }
+  
+  h6 {
+    font-size: 1rem;
+  }
+
+  // 段落のスタイル
+  p {
+    font-size: 1rem;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  // リンクのスタイル
+  a {
+    color: #4ea1d3;
+    text-decoration: underline;
+    &:hover {
+      color: #82c0ea;
+    }
+  }
+
+  // リストのスタイル
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  // 引用のスタイル
+  blockquote {
+    border-left: 4px solid #444;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #aaa;
+  }
+
+  // コードブロックのスタイル
+  pre {
+    background-color: #111;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 4px;
+    
+    code {
+      background: none;
+      color: inherit;
+    }
+  }
+
+  // インラインコードのスタイル
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #222;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    color: #f8f8f2;
+  }
+
+  // 水平線のスタイル
+  hr {
+    border: 0;
+    height: 1px;
+    background: #444;
+    margin: 2rem 0;
   }
 }
