@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.DEV ? "/" : "/easy-mosh/"}>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
