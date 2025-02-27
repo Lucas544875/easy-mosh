@@ -67,7 +67,9 @@ export function useFfmpeg({videoRef, messageRef}) {
 
   async function rendoringTimeline(actions) {
     setIsProcessing(true);
-    messageRef.current.innerHTML = 'レンダリングを開始します...';
+    if (messageRef.current){
+      messageRef.current.innerHTML = 'レンダリングを開始します...';
+    }
     await load();
 
     try {
