@@ -35,6 +35,9 @@ class VideoControl {
       // video 要素の id には src を利用
       video.id = src;
       video.style.display = "block";
+      video.style.maxHeight = "100%";
+      video.style.maxWidth = "100%";
+      video.style.margin = "0 auto";
       video.setAttribute("playsinline", "true");
       video.setAttribute("preload", "auto");
       video.loop = true;
