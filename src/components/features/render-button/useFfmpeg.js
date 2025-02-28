@@ -37,9 +37,7 @@ export function useFfmpeg({videoRef, messageRef}) {
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
-    await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
-
-    console.log(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`])
+    await ffmpeg.exec(["-r", "30", "-i", `f_${id}.mp4`, "-ss", `${ss}`, "-to", `${to}`, "-c:v","libx264","-bf","0","-x264-params","keyint=100000:min-keyint=100000:scenecut=0:bframes=0","-an","-f","h264",`f_${id}.h264`]);
     const datah264 = await ffmpeg.readFile(`f_${id}.h264`);
     return datah264;
   }
@@ -49,18 +47,17 @@ export function useFfmpeg({videoRef, messageRef}) {
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.mp4`, data);
-    await ffmpeg.exec(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-frames:v", "2" , "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
-    console.log(["-i",`f_${id}.mp4`, "-ss", `${ss}`, "-frames:v", "2" , "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`])
+    await ffmpeg.exec(["-r", "30", "-i", `f_${id}.mp4`, "-ss", `${ss}`, "-frames:v", "2" , "-c:v","libx264","-bf","0","-x264-params","\"keyint=100000:min-keyint=100000:scenecut=0:bframes=0\"","-an","-f","h264",`f_${id}.h264`]);
     const datah264 = await ffmpeg.readFile(`f_${id}.h264`);
     return datah264;
   }
+
   const h264ToMp4 = async ( data ) => {
     // await load();
     const ffmpeg = ffmpegRef.current;
     const id = self.crypto.randomUUID();
     await ffmpeg.writeFile(`f_${id}.h264`, data);
-    await ffmpeg.exec(['-f','h264','-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`]);
-    console.log(['-f','h264','-i', `f_${id}.h264`, '-c', 'copy', `f_${id}.mp4`])
+    await ffmpeg.exec(["-r", "30", "-f","h264","-i", `f_${id}.h264`, "-c", "copy", `f_${id}.mp4`]);
     const newData = await ffmpeg.readFile(`f_${id}.mp4`);
     return newData;
   }
