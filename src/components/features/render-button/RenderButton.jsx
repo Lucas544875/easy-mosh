@@ -29,8 +29,8 @@ const RenderButton = () => {
   }
 
   const handleOk = () => {
-    setIsModalOpen(false);
-    videoRef.current.src = '';
+    // setIsModalOpen(false);
+    // videoRef.current.src = '';
   }
 
   const handleCancel = () => {}
